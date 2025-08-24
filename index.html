@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adventure Portfolio - Aviral Gupta</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="logo-text">Adventure Portfolio</span>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#home" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#about" class="nav-link">About</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#adventures" class="nav-link">Adventures</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#model-un" class="nav-link">Model UN</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#projects" class="nav-link">Projects</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#interests" class="nav-link">Interests</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#contact" class="nav-link">Contact</a>
+                </li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-background">
+            <div class="floating-elements">
+                <div class="floating-element" data-speed="2">🌍</div>
+                <div class="floating-element" data-speed="1.5">✈️</div>
+                <div class="floating-element" data-speed="3">🗺️</div>
+                <div class="floating-element" data-speed="2.5">🏔️</div>
+                <div class="floating-element" data-speed="1">🌊</div>
+            </div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-text" data-aos="fade-right" data-aos-duration="1000">
+                <h1 class="hero-title">
+                    Hi, I'm <span class="highlight">Aviral Gupta</span>
+                </h1>
+                <p class="hero-subtitle">Computer Scientist • AI Engineer • Research Innovator</p>
+                <p class="hero-description">
+                    I'm a Computer Science and Business Analytics student at USF, passionate about 
+                    AI/ML, distributed systems, and building scalable solutions. When I'm not coding, 
+                    I love exploring new places, trying different cuisines, and building communities. 
+                    From research labs to cultural adventures, I'm always seeking new experiences.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#adventures" class="btn btn-primary">Explore My Adventures</a>
+                    <a href="#projects" class="btn btn-secondary">View My Work</a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <span class="stat-number" data-target="3">0</span>
+                        <span class="stat-label">Internships</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" data-target="99">0</span>
+                        <span class="stat-label">GPA %</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" data-target="5">0</span>
+                        <span class="stat-label">Leadership Roles</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-visual" data-aos="fade-left" data-aos-duration="1000">
+                <div class="world-map">
+                    <div class="map-point" style="top: 20%; left: 30%;" data-location="Europe">
+                        <div class="point-pulse"></div>
+                    </div>
+                    <div class="map-point" style="top: 40%; left: 70%;" data-location="Asia">
+                        <div class="point-pulse"></div>
+                    </div>
+                    <div class="map-point" style="top: 60%; left: 20%;" data-location="Africa">
+                        <div class="point-pulse"></div>
+                    </div>
+                    <div class="map-point" style="top: 80%; left: 80%;" data-location="Australia">
+                        <div class="point-pulse"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <div class="scroll-arrow"></div>
+            <span>Scroll to explore</span>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">About Me</h2>
+            <div class="about-content">
+                <div class="about-text" data-aos="fade-right" data-aos-delay="200">
+                    <p class="about-intro">
+                        I'm a Computer Science and Business Analytics student at the University of South Florida, 
+                        part of the Judy Genshaft Honors College as a Green and Gold Presidential Scholar. 
+                        My passion lies in AI/ML, distributed systems, and building scalable solutions that solve real-world problems. 
+                        Beyond technology, I'm passionate about exploring new cultures, building communities, and creating meaningful connections.
+                    </p>
+                    <div class="about-grid">
+                        <div class="about-card">
+                            <div class="card-icon">🎓</div>
+                            <h3>Honors Student</h3>
+                            <p>Green and Gold Presidential Scholar at USF</p>
+                        </div>
+                        <div class="about-card">
+                            <div class="card-icon">🤖</div>
+                            <h3>AI Researcher</h3>
+                            <p>Working on cutting-edge NLP and ML projects</p>
+                        </div>
+                        <div class="about-card">
+                            <div class="card-icon">🚀</div>
+                            <h3>Tech Innovator</h3>
+                            <p>Building scalable systems and microservices</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-skills" data-aos="fade-left" data-aos-delay="400">
+                    <h3>Skills & Technologies</h3>
+                    <div class="skills-container">
+                        <div class="skill-category">
+                            <h4>Languages</h4>
+                            <div class="skill-tags">
+                                <span class="skill-tag">C/C++</span>
+                                <span class="skill-tag">Python</span>
+                                <span class="skill-tag">Java</span>
+                                <span class="skill-tag">JavaScript/TypeScript</span>
+                            </div>
+                        </div>
+                        <div class="skill-category">
+                            <h4>Technologies</h4>
+                            <div class="skill-tags">
+                                <span class="skill-tag">React</span>
+                                <span class="skill-tag">Flask</span>
+                                <span class="skill-tag">Node.js</span>
+                                <span class="skill-tag">Docker</span>
+                            </div>
+                        </div>
+                        <div class="skill-category">
+                            <h4>Cloud & Tools</h4>
+                            <div class="skill-tags">
+                                <span class="skill-tag">AWS</span>
+                                <span class="skill-tag">Kubernetes</span>
+                                <span class="skill-tag">GitHub Actions</span>
+                                <span class="skill-tag">Linux</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Adventures Section -->
+    <section id="adventures" class="adventures">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">My Journey</h2>
+            <div class="adventures-intro" data-aos="fade-up" data-aos-delay="200">
+                <p>From research labs to industry internships, my journey in technology has been filled with 
+                   exciting challenges and breakthrough moments. Each experience has shaped me into the innovator I am today.</p>
+            </div>
+            <div class="adventures-grid">
+                <div class="adventure-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="adventure-image">
+                        <div class="adventure-overlay">
+                            <div class="adventure-location">🏢 Bake More Pies</div>
+                        </div>
+                        <div class="adventure-placeholder">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                    </div>
+                    <div class="adventure-content">
+                        <h3>AI Solutions Intern</h3>
+                        <p>Designed high-performance microservices delivering sub-200ms API response times with 99.9% uptime</p>
+                        <div class="adventure-tags">
+                            <span class="adventure-tag">C++/Python</span>
+                            <span class="adventure-tag">Docker</span>
+                            <span class="adventure-tag">Kubernetes</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="adventure-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="adventure-image">
+                        <div class="adventure-overlay">
+                            <div class="adventure-location">🔬 USF Research</div>
+                        </div>
+                        <div class="adventure-placeholder">
+                            <i class="fas fa-flask"></i>
+                        </div>
+                    </div>
+                    <div class="adventure-content">
+                        <h3>Faculty Honors Student</h3>
+                        <p>Re-architected backend infrastructure cutting data retrieval latency by 40%</p>
+                        <div class="adventure-tags">
+                            <span class="adventure-tag">Python</span>
+                            <span class="adventure-tag">ETL</span>
+                            <span class="adventure-tag">Automation</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="adventure-card" data-aos="fade-up" data-aos-delay="500">
+                    <div class="adventure-image">
+                        <div class="adventure-overlay">
+                            <div class="adventure-location">🧠 Dr. John Templeton Lab</div>
+                        </div>
+                        <div class="adventure-placeholder">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                    </div>
+                    <div class="adventure-content">
+                        <h3>Research Assistant</h3>
+                        <p>Engineered real-time NLP pipelines reducing query time from 3.5s to 0.8s</p>
+                        <div class="adventure-tags">
+                            <span class="adventure-tag">AWS</span>
+                            <span class="adventure-tag">NLP</span>
+                            <span class="adventure-tag">ML</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="adventure-card" data-aos="fade-up" data-aos-delay="600">
+                    <div class="adventure-image">
+                        <div class="adventure-overlay">
+                            <div class="adventure-location">🎓 USF Leadership</div>
+                        </div>
+                        <div class="adventure-placeholder">
+                            <i class="fas fa-users"></i>
+                        </div>
+                    </div>
+                    <div class="adventure-content">
+                        <h3>Student Leader</h3>
+                        <p>President of Students of Indian Association, Vice Finance Chair of E-Council</p>
+                        <div class="adventure-tags">
+                            <span class="adventure-tag">Leadership</span>
+                            <span class="adventure-tag">Management</span>
+                            <span class="adventure-tag">Community</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="adventure-card" data-aos="fade-up" data-aos-delay="700">
+                    <div class="adventure-image">
+                        <div class="adventure-overlay">
+                            <div class="adventure-location">🌍 Cultural Exploration</div>
+                        </div>
+                        <div class="adventure-placeholder">
+                            <i class="fas fa-globe-americas"></i>
+                        </div>
+                    </div>
+                    <div class="adventure-content">
+                        <h3>Cultural Immersion</h3>
+                        <p>Exploring diverse cultures through travel, food, and community engagement. 
+                           From local Tampa Bay adventures to international experiences.</p>
+                        <div class="adventure-tags">
+                            <span class="adventure-tag">Travel</span>
+                            <span class="adventure-tag">Culture</span>
+                            <span class="adventure-tag">Community</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="adventures-cta" data-aos="fade-up" data-aos-delay="800">
+                <p>Ready to join me on the next adventure?</p>
+                <a href="#contact" class="btn btn-primary">Let's Connect</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Model UN Section -->
+    <section id="model-un" class="model-un">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Leadership & Achievements</h2>
+            <div class="model-un-content">
+                <div class="model-un-intro" data-aos="fade-right" data-aos-delay="200">
+                    <h3>Leading with Purpose and Innovation</h3>
+                    <p>Throughout my time at USF, I've taken on multiple leadership roles that have taught me 
+                       the importance of community building, strategic thinking, and driving positive change.</p>
+                    <div class="mun-achievements">
+                        <div class="achievement-item">
+                            <div class="achievement-icon">👑</div>
+                            <div class="achievement-text">
+                                <h4>President</h4>
+                                <p>Students of Indian Association, USF</p>
+                            </div>
+                        </div>
+                        <div class="achievement-item">
+                            <div class="achievement-icon">💰</div>
+                            <div class="achievement-text">
+                                <h4>Vice Finance Chair</h4>
+                                <p>E-Council USF - Managing $20K+ Budget</p>
+                            </div>
+                        </div>
+                        <div class="achievement-item">
+                            <div class="achievement-icon">🎯</div>
+                            <div class="achievement-text">
+                                <h4>Director of Finance</h4>
+                                <p>SHPE USF - Increased Sponsorship by 10%</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="model-un-visual" data-aos="fade-left" data-aos-delay="400">
+                    <div class="un-chamber">
+                        <div class="delegate-seats">
+                            <div class="seat" data-country="USA">🇺🇸</div>
+                            <div class="seat" data-country="UK">🇬🇧</div>
+                            <div class="seat" data-country="France">🇫🇷</div>
+                            <div class="seat" data-country="China">🇨🇳</div>
+                            <div class="seat" data-country="Russia">🇷🇺</div>
+                            <div class="seat" data-country="India">🇮🇳</div>
+                        </div>
+                        <div class="podium">
+                            <i class="fas fa-microphone"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mun-topics" data-aos="fade-up" data-aos-delay="600">
+                <h3>Key Achievements & Impact</h3>
+                <div class="topics-grid">
+                    <div class="topic-card">
+                        <h4>Community Growth</h4>
+                        <p>Increased SIA membership by 30% and secured $5K+ in sponsorships</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>Financial Management</h4>
+                        <p>Optimized $20K+ budget for 20+ engineering organizations</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>Strategic Leadership</h4>
+                        <p>Led cross-functional teams and drove organizational success</p>
+                    </div>
+                    <div class="topic-card">
+                        <h4>Event Management</h4>
+                        <p>Boosted TEDxUSF attendance by 20% through analytics-driven campaigns</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">My Projects</h2>
+            <div class="project-filters" data-aos="fade-up" data-aos-delay="200">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="web">Web Apps</button>
+                <button class="filter-btn" data-filter="mobile">Mobile Apps</button>
+                <button class="filter-btn" data-filter="ai">AI/ML</button>
+                <button class="filter-btn" data-filter="design">Design</button>
+            </div>
+            <div class="projects-grid">
+                <div class="project-card" data-category="ai" data-aos="fade-up" data-aos-delay="300">
+                    <div class="project-image">
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="#" class="project-link" title="Live Demo"><i class="fas fa-external-link-alt"></i></a>
+                                <a href="https://github.com/Aviralgupt/JobPal-SaaS-v1" class="project-link" title="GitHub"><i class="fab fa-github"></i></a>
+                            </div>
+                        </div>
+                        <div class="project-placeholder">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">JobPal - AI Job Search Companion</h3>
+                        <p class="project-description">
+                            An AI-powered job search companion that uses LLMs to review resumes and suggest improvements. 
+                            Built with scalable SaaS architecture and modern AI integrations.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">React</span>
+                            <span class="tech-tag">Flask</span>
+                            <span class="tech-tag">LLMs</span>
+                            <span class="tech-tag">SaaS</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card" data-category="ai" data-aos="fade-up" data-aos-delay="400">
+                    <div class="project-image">
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="#" class="project-link" title="Live Demo"><i class="fas fa-external-link-alt"></i></a>
+                                <a href="https://github.com/Aviralgupt/Nusify" class="project-link" title="GitHub"><i class="fab fa-github"></i></a>
+                            </div>
+                        </div>
+                        <div class="project-placeholder">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Nusify - Scalable SaaS Platform</h3>
+                        <p class="project-description">
+                            An ongoing project where I'm experimenting with scalable SaaS architecture and AI integrations. 
+                            Exploring modern cloud-native patterns and microservices design.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">SaaS</span>
+                            <span class="tech-tag">Microservices</span>
+                            <span class="tech-tag">AI Integration</span>
+                            <span class="tech-tag">Cloud Native</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card" data-category="ai" data-aos="fade-up" data-aos-delay="500">
+                    <div class="project-image">
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="#" class="project-link" title="Live Demo"><i class="fas fa-external-link-alt"></i></a>
+                                <a href="#" class="project-link" title="GitHub"><i class="fab fa-github"></i></a>
+                            </div>
+                        </div>
+                        <div class="project-placeholder">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Light-Following Sea Turtle Robot</h3>
+                        <p class="project-description">
+                            Arduino-based autonomous robot inspired by hatchling sea turtle navigation, 
+                            using LDR sensors and PID-based movement algorithms for 95% navigation success rate.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Arduino</span>
+                            <span class="tech-tag">C++</span>
+                            <span class="tech-tag">PID Control</span>
+                            <span class="tech-tag">Embedded Systems</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card" data-category="ai" data-aos="fade-up" data-aos-delay="600">
+                    <div class="project-image">
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="#" class="project-link" title="Live Demo"><i class="fas fa-external-link-alt"></i></a>
+                                <a href="#" class="project-link" title="GitHub"><i class="fab fa-github"></i></a>
+                            </div>
+                        </div>
+                        <div class="project-placeholder">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">NLP Research Pipeline</h3>
+                        <p class="project-description">
+                            Real-time NLP pipelines on AWS for processing EMR datasets at scale, 
+                            reducing average query time from 3.5s to 0.8s with AWS Textract integration.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">AWS</span>
+                            <span class="tech-tag">NLP</span>
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">Machine Learning</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interests Section -->
+    <section id="interests" class="interests">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Interests & Hobbies</h2>
+            <div class="interests-grid">
+                <div class="interest-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="interest-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>AI & Machine Learning</h3>
+                    <p>Passionate about exploring the frontiers of artificial intelligence, from NLP pipelines 
+                       to computer vision and autonomous systems.</p>
+                    <div class="interest-tags">
+                        <span class="interest-tag">NLP</span>
+                        <span class="interest-tag">Computer Vision</span>
+                        <span class="interest-tag">Deep Learning</span>
+                    </div>
+                </div>
+
+                <div class="interest-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="interest-icon">
+                        <i class="fas fa-microchip"></i>
+                    </div>
+                    <h3>Embedded Systems</h3>
+                    <p>Fascinated by the intersection of hardware and software, building autonomous robots 
+                       and IoT devices that solve real-world problems.</p>
+                    <div class="interest-tags">
+                        <span class="interest-tag">Arduino</span>
+                        <span class="interest-tag">IoT</span>
+                        <span class="interest-tag">Robotics</span>
+                    </div>
+                </div>
+
+                <div class="interest-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="interest-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Data Analytics</h3>
+                    <p>Combining computer science with business analytics to extract insights from data, 
+                       build predictive models, and drive data-informed decisions.</p>
+                    <div class="interest-tags">
+                        <span class="interest-tag">Statistics</span>
+                        <span class="interest-tag">Predictive Modeling</span>
+                        <span class="interest-tag">Business Intelligence</span>
+                    </div>
+                </div>
+
+                <div class="interest-card" data-aos="fade-up" data-aos-delay="500">
+                    <div class="interest-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Leadership & Community</h3>
+                    <p>Passionate about building communities, mentoring others, and creating 
+                       opportunities for students to grow and succeed together.</p>
+                    <div class="interest-tags">
+                        <span class="interest-tag">Mentoring</span>
+                        <span class="interest-tag">Community Building</span>
+                        <span class="interest-tag">Strategic Planning</span>
+                    </div>
+                </div>
+
+                <div class="interest-card" data-aos="fade-up" data-aos-delay="600">
+                    <div class="interest-icon">
+                        <i class="fas fa-cloud"></i>
+                    </div>
+                    <h3>Cloud & DevOps</h3>
+                    <p>Building scalable, reliable systems using modern cloud technologies, 
+                       containerization, and automated deployment pipelines.</p>
+                    <div class="interest-tags">
+                        <span class="interest-tag">AWS</span>
+                        <span class="interest-tag">Docker</span>
+                        <span class="interest-tag">CI/CD</span>
+                    </div>
+                </div>
+
+                <div class="interest-card" data-aos="fade-up" data-aos-delay="700">
+                    <div class="interest-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3>Continuous Learning</h3>
+                    <p>Always eager to learn new technologies, frameworks, and methodologies 
+                       to stay at the forefront of innovation in computer science.</p>
+                    <div class="interest-tags">
+                        <span class="interest-tag">Research</span>
+                        <span class="interest-tag">Innovation</span>
+                        <span class="interest-tag">Growth</span>
+                    </div>
+                </div>
+
+                <div class="interest-card" data-aos="fade-up" data-aos-delay="800">
+                    <div class="interest-icon">
+                        <i class="fas fa-plane"></i>
+                    </div>
+                    <h3>Exploring New Places</h3>
+                    <p>Passionate about discovering new cultures, cuisines, and experiences. 
+                       From local adventures to international travel, every journey brings new perspectives.</p>
+                    <div class="interest-tags">
+                        <span class="interest-tag">Travel</span>
+                        <span class="interest-tag">Culture</span>
+                        <span class="interest-tag">Adventure</span>
+                    </div>
+                </div>
+
+                <div class="interest-card" data-aos="fade-up" data-aos-delay="900">
+                    <div class="interest-icon">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <h3>Culinary Exploration</h3>
+                    <p>Love trying new cuisines and cooking dishes from around the world. 
+                       Every recipe is a journey into different cultures and traditions.</p>
+                    <div class="interest-tags">
+                        <span class="interest-tag">Cooking</span>
+                        <span class="interest-tag">International Cuisine</span>
+                        <span class="interest-tag">Food Culture</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Let's Connect</h2>
+            <div class="contact-content">
+                <div class="contact-info" data-aos="fade-right" data-aos-delay="200">
+                    <h3>Ready for an Adventure?</h3>
+                    <p>Whether you want to discuss a project, share travel stories, explore new technologies, 
+                       or just say hello, I'd love to hear from you. Let's create something amazing together!</p>
+                    <div class="contact-methods">
+                        <div class="contact-method">
+                            <i class="fas fa-envelope"></i>
+                            <span>aviralgupta@usf.edu</span>
+                        </div>
+                        <div class="contact-method">
+                            <i class="fas fa-phone"></i>
+                            <span>(656) 200-7073</span>
+                        </div>
+                        <div class="contact-method">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Tampa, FL</span>
+                        </div>
+                    </div>
+                    <div class="social-links">
+                        <a href="https://github.com/Aviralgupt" class="social-link" title="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="https://linkedin.com/in/aviral-gupt" class="social-link" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="social-link" title="Portfolio"><i class="fas fa-globe"></i></a>
+                        <a href="#" class="social-link" title="Resume"><i class="fas fa-file-alt"></i></a>
+                    </div>
+                </div>
+                <form class="contact-form" data-aos="fade-left" data-aos-delay="400">
+                    <div class="form-group">
+                        <input type="text" id="name" name="name" placeholder="Your Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="email" name="email" placeholder="Your Email" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="subject" name="subject" placeholder="Subject" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="message" name="message" placeholder="Your Message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                                 <div class="footer-section">
+                     <h4>Adventure Portfolio</h4>
+                     <p>Building digital experiences, exploring new places, and creating meaningful connections.</p>
+                 </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#adventures">Adventures</a></li>
+                        <li><a href="#projects">Projects</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <div class="footer-social">
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Aviral Gupta. All rights reserved.</p>
+                <p>Built with ❤️ and lots of ☕ | Ready for the next innovation!</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
+
