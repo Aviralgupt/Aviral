@@ -429,6 +429,28 @@ document.querySelectorAll('.skill-tag').forEach(tag => {
     });
 });
 
+// Add interactive features for portfolio cards
+document.querySelectorAll('.portfolio-card').forEach(card => {
+    // Add click to expand functionality for mobile
+    if (window.innerWidth <= 768) {
+        card.addEventListener('click', function() {
+            this.classList.toggle('expanded');
+        });
+    }
+    
+    // Add hover effects for portfolio tags
+    const tags = card.querySelectorAll('.portfolio-tag');
+    tags.forEach(tag => {
+        tag.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-3px) scale(1.05)';
+        });
+        
+        tag.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0) scale(1)';
+        });
+    });
+});
+
 // Smooth reveal animation for stats
 function animateStats() {
     const stats = document.querySelectorAll('.stat-number');
@@ -616,7 +638,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Initialize all functionality when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('Adventure Portfolio loaded successfully! 🚀');
+    console.log('Product Management Portfolio loaded successfully! 🚀');
+    
+    // Initialize portfolio animations
+    initializePortfolioAnimations();
     
     // Add some fun Easter eggs
     let konamiCode = [];
@@ -649,53 +674,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
     
-    // Add adventure mode toggle
-    let adventureMode = false;
-    const adventureToggle = document.createElement('button');
-    adventureToggle.innerHTML = '🌍 Adventure Mode';
-    adventureToggle.style.cssText = `
-        position: fixed;
-        bottom: 20px;
-        left: 20px;
-        background: var(--gradient-primary);
-        color: white;
-        border: none;
-        padding: 12px 20px;
-        border-radius: 25px;
-        cursor: pointer;
-        z-index: 1000;
-        font-weight: 600;
-        box-shadow: var(--shadow-md);
-        transition: var(--transition);
-    `;
-    
-    adventureToggle.addEventListener('click', () => {
-        adventureMode = !adventureMode;
-        if (adventureMode) {
-            document.body.style.animation = 'adventureGlow 3s infinite';
-            adventureToggle.innerHTML = '🏠 Home Mode';
-            showNotification('🌍 Adventure Mode activated! Explore the world!', 'success');
-        } else {
-            document.body.style.animation = '';
-            adventureToggle.innerHTML = '🌍 Adventure Mode';
-            showNotification('🏠 Welcome back home!', 'info');
-        }
-    });
-    
-    // Add adventure glow animation
-    if (!document.querySelector('#adventure-glow-styles')) {
-        const style = document.createElement('style');
-        style.id = 'adventure-glow-styles';
-        style.textContent = `
-            @keyframes adventureGlow {
-                0%, 100% { box-shadow: 0 0 20px rgba(49, 130, 206, 0.3); }
-                50% { box-shadow: 0 0 40px rgba(49, 130, 206, 0.6); }
-            }
-        `;
-        document.head.appendChild(style);
-    }
-    
-    document.body.appendChild(adventureToggle);
+
     
     // Add floating action button for quick navigation
     const fab = document.createElement('div');
@@ -809,6 +788,51 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 1500);
     });
 });
+
+// Portfolio animations and interactions
+function initializePortfolioAnimations() {
+    // Animate metrics when portfolio cards come into view
+    const portfolioCards = document.querySelectorAll('.portfolio-card');
+    const portfolioObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                animatePortfolioMetrics(entry.target);
+                portfolioObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.3 });
+
+    portfolioCards.forEach(card => portfolioObserver.observe(card));
+}
+
+function animatePortfolioMetrics(card) {
+    const metrics = card.querySelectorAll('.metric-value');
+    metrics.forEach(metric => {
+        const originalText = metric.textContent;
+        const numericValue = parseFloat(originalText);
+        
+        if (!isNaN(numericValue)) {
+            animateMetricCounter(metric, numericValue, originalText);
+        }
+    });
+}
+
+function animateMetricCounter(element, target, originalText) {
+    let start = 0;
+    const increment = target / 50;
+    const duration = 1500;
+    const stepTime = duration / 50;
+    
+    const timer = setInterval(() => {
+        start += increment;
+        if (start >= target) {
+            element.textContent = originalText;
+            clearInterval(timer);
+        } else {
+            element.textContent = Math.floor(start);
+        }
+    }, stepTime);
+}
 
 // Add intersection observer for all sections
 const sectionObserver = new IntersectionObserver((entries) => {
