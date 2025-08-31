@@ -638,10 +638,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Initialize all functionality when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('Product Management Portfolio loaded successfully! 🚀');
+    console.log('Dark Theme Portfolio with Tailwind CSS loaded successfully! 🌟');
     
     // Initialize portfolio animations
     initializePortfolioAnimations();
+    
+    // Initialize falling stars animation
+    initializeFallingStars();
+    
+    // Initialize project filtering
+    initializeProjectFiltering();
+    
+    // Initialize smooth scrolling
+    initializeSmoothScrolling();
+    
+    // Initialize AOS
+    AOS.init({
+        duration: 1000,
+        easing: 'ease-in-out',
+        once: true,
+        offset: 100
+    });
     
     // Add some fun Easter eggs
     let konamiCode = [];
@@ -789,6 +806,85 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+// Falling stars animation
+function initializeFallingStars() {
+    const starsContainer = document.querySelector('.fixed.inset-0');
+    if (!starsContainer) return;
+    
+    // Create additional stars dynamically
+    for (let i = 0; i < 30; i++) {
+        const star = document.createElement('div');
+        star.className = 'absolute w-1 h-1 bg-white rounded-full animate-fall';
+        star.style.left = Math.random() * 100 + '%';
+        star.style.animationDelay = Math.random() * 20 + 's';
+        star.style.animationDuration = (Math.random() * 10 + 5) + 's';
+        starsContainer.appendChild(star);
+    }
+    
+    // Add twinkling effect
+    setInterval(() => {
+        const stars = document.querySelectorAll('.animate-fall');
+        stars.forEach(star => {
+            if (Math.random() > 0.8) {
+                star.style.opacity = '0.3';
+                setTimeout(() => {
+                    star.style.opacity = '1';
+                }, 500);
+            }
+        });
+    }, 2000);
+}
+
+// Project filtering functionality
+function initializeProjectFiltering() {
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const projectCards = document.querySelectorAll('[data-category]');
+    
+    filterButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const filter = button.getAttribute('data-filter');
+            
+            // Update active button
+            filterButtons.forEach(btn => {
+                btn.classList.remove('active', 'bg-primary-500', 'text-white');
+                btn.classList.add('bg-dark-700', 'text-gray-300');
+            });
+            button.classList.add('active', 'bg-primary-500', 'text-white');
+            button.classList.remove('bg-dark-700', 'text-gray-300');
+            
+            // Filter projects
+            projectCards.forEach(card => {
+                if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                    card.style.display = 'block';
+                    card.style.animation = 'fadeIn 0.5s ease-in-out';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    });
+}
+
+// Smooth scrolling for navigation links
+function initializeSmoothScrolling() {
+    const navLinks = document.querySelectorAll('a[href^="#"]');
+    
+    navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetId = link.getAttribute('href');
+            const targetSection = document.querySelector(targetId);
+            
+            if (targetSection) {
+                targetSection.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+}
+
 // Portfolio animations and interactions
 function initializePortfolioAnimations() {
     // Animate metrics when portfolio cards come into view
@@ -858,7 +954,7 @@ const revealObserver = new IntersectionObserver((entries) => {
 }, { threshold: 0.1 });
 
 // Observe elements that should reveal
-document.querySelectorAll('.adventure-card, .project-card, .interest-card, .topic-card').forEach(el => {
+document.querySelectorAll('.adventure-card, .project-card, .interest-card, .topic-card, .timeline-item').forEach(el => {
     revealObserver.observe(el);
 });
 
@@ -867,13 +963,13 @@ if (!document.querySelector('#reveal-styles')) {
     const style = document.createElement('style');
     style.id = 'reveal-styles';
     style.textContent = `
-        .adventure-card, .project-card, .interest-card, .topic-card {
+        .adventure-card, .project-card, .interest-card, .topic-card, .timeline-item {
             opacity: 0;
             transform: translateY(30px);
             transition: all 0.6s ease;
         }
         
-        .adventure-card.reveal, .project-card.reveal, .interest-card.reveal, .topic-card.reveal {
+        .adventure-card.reveal, .project-card.reveal, .interest-card.reveal, .topic-card.reveal, .timeline-item.reveal {
             opacity: 1;
             transform: translateY(0);
         }
@@ -891,6 +987,20 @@ if (!document.querySelector('#reveal-styles')) {
                 opacity: 1;
                 transform: translateY(0);
             }
+        }
+        
+        /* Dark theme enhancements */
+        .timeline-item:hover .marker-dot {
+            box-shadow: 0 0 20px var(--primary-color);
+            transform: scale(1.2);
+        }
+        
+        .portfolio-card:hover .company-logo {
+            transform: scale(1.1) rotate(5deg);
+        }
+        
+        .interest-card:hover .interest-icon {
+            box-shadow: 0 0 30px var(--primary-color);
         }
     `;
     document.head.appendChild(style);
