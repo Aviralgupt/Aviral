@@ -123,6 +123,12 @@ function downloadResume() {
     
     // Add functions to global scope
     window.viewResumeOnline = function() {
+        // Open the dedicated PDF viewer page
+        window.open('pdf-viewer.html', '_blank');
+        document.body.removeChild(modal);
+    };
+    
+    window.viewResumeOnlineOld = function() {
         // Check if PDF exists, otherwise fallback to HTML version
         const pdfPath = 'assets/Aviral_Gupta_Resume.pdf';
         
@@ -205,22 +211,57 @@ function downloadResume() {
                     </button>
                 </div>
                 <div class="pdf-container">
-                    <iframe src="${pdfPath}#toolbar=1&navpanes=1&scrollbar=1" class="pdf-viewer" type="application/pdf">
-                        <div class="fallback-message">
-                            <h3>PDF Viewer Not Supported</h3>
-                            <p>Your browser doesn't support PDF viewing. Please download the resume using the button above.</p>
-                            <a href="${pdfPath}" download="Aviral_Gupta_Resume.pdf" class="download-btn">
-                                📥 Download Resume PDF
-                            </a>
+                    <div id="pdf-viewer-container">
+                        <iframe id="pdf-iframe" src="${pdfPath}#toolbar=1&navpanes=1&scrollbar=1&view=FitH" class="pdf-viewer" type="application/pdf" style="display: none;">
+                        </iframe>
+                        <div id="fallback-message" class="fallback-message" style="display: block;">
+                            <div style="text-align: center; padding: 40px;">
+                                <div style="font-size: 48px; margin-bottom: 20px;">📄</div>
+                                <h3 style="color: #1e293b; margin-bottom: 15px;">Resume Preview</h3>
+                                <p style="color: #64748b; margin-bottom: 25px;">
+                                    Click the buttons above to download or print the resume PDF.<br>
+                                    Some browsers may not support inline PDF viewing.
+                                </p>
+                                <a href="${pdfPath}" target="_blank" class="download-btn" style="margin: 5px;">
+                                    🔗 Open PDF in New Tab
+                                </a>
+                                <a href="${pdfPath}" download="Aviral_Gupta_Resume.pdf" class="download-btn" style="margin: 5px;">
+                                    📥 Download PDF
+                                </a>
+                            </div>
                         </div>
-                    </iframe>
+                    </div>
                 </div>
                 <script>
-                    // Fallback if PDF doesn't load
-                    document.querySelector('.pdf-viewer').onerror = function() {
-                        this.style.display = 'none';
-                        document.querySelector('.fallback-message').style.display = 'block';
+                    // Try to load PDF, with timeout fallback
+                    const iframe = document.getElementById('pdf-iframe');
+                    const fallback = document.getElementById('fallback-message');
+                    
+                    // Try to load the PDF
+                    iframe.onload = function() {
+                        try {
+                            // Check if iframe content is accessible (not blocked)
+                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                            if (iframeDoc && iframeDoc.body && iframeDoc.body.innerHTML.trim() !== '') {
+                                iframe.style.display = 'block';
+                                fallback.style.display = 'none';
+                            }
+                        } catch (e) {
+                            // Cross-origin or other security error - keep fallback
+                            console.log('PDF inline viewing not supported, showing fallback');
+                        }
                     };
+                    
+                    iframe.onerror = function() {
+                        console.log('PDF failed to load, showing fallback');
+                    };
+                    
+                    // Timeout fallback - if PDF doesn't load in 3 seconds, assume it won't work
+                    setTimeout(function() {
+                        if (iframe.style.display === 'none') {
+                            console.log('PDF viewing timeout, using fallback interface');
+                        }
+                    }, 3000);
                 </script>
             </body>
             </html>

@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aviral Gupta - Resume PDF</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .header {
+            background: rgba(30, 41, 59, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(59, 130, 246, 0.3);
+        }
+        
+        .header h1 {
+            color: #3b82f6;
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+        
+        .header p {
+            color: #e2e8f0;
+            font-size: 14px;
+        }
+        
+        .actions {
+            background: rgba(30, 41, 59, 0.8);
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            margin: 0 5px;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+        
+        .btn.download {
+            background: linear-gradient(135deg, #10b981, #047857);
+        }
+        
+        .btn.print {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+        }
+        
+        .viewer-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .pdf-embed {
+            width: 100%;
+            max-width: 900px;
+            height: 80vh;
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            background: white;
+        }
+        
+        .fallback {
+            text-align: center;
+            color: #e2e8f0;
+            padding: 40px;
+            background: rgba(30, 41, 59, 0.5);
+            border-radius: 10px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .fallback h3 {
+            color: #3b82f6;
+            margin-bottom: 15px;
+        }
+        
+        .fallback p {
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .pdf-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 20px;
+            }
+            
+            .btn {
+                font-size: 12px;
+                padding: 8px 16px;
+                margin: 2px;
+            }
+            
+            .pdf-embed {
+                height: 70vh;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📄 Aviral Gupta - Resume</h1>
+        <p>Computer Scientist • AI Engineer • Research Innovator</p>
+    </div>
+    
+    <div class="actions">
+        <a href="assets/Aviral_Gupta_Resume.pdf" download="Aviral_Gupta_Resume.pdf" class="btn download">
+            📥 Download PDF
+        </a>
+        <button onclick="window.print()" class="btn print">
+            🖨️ Print
+        </button>
+        <a href="assets/Aviral_Gupta_Resume.pdf" target="_blank" class="btn">
+            🔗 Open in New Tab
+        </a>
+        <a href="index.html" class="btn" style="background: linear-gradient(135deg, #6b7280, #4b5563);">
+            ← Back to Portfolio
+        </a>
+    </div>
+    
+    <div class="viewer-container">
+        <div id="pdf-container">
+            <!-- Try different PDF embedding methods -->
+            <object id="pdf-object" data="assets/Aviral_Gupta_Resume.pdf#toolbar=1&navpanes=1&scrollbar=1" type="application/pdf" class="pdf-embed">
+                <embed id="pdf-embed" src="assets/Aviral_Gupta_Resume.pdf#toolbar=1&navpanes=1&scrollbar=1" type="application/pdf" class="pdf-embed">
+                    <div class="fallback">
+                        <div class="pdf-icon">📄</div>
+                        <h3>PDF Viewer Not Available</h3>
+                        <p>Your browser doesn't support inline PDF viewing. No worries! You can still access the resume using the options below:</p>
+                        <a href="assets/Aviral_Gupta_Resume.pdf" target="_blank" class="btn">
+                            🔗 Open PDF in New Tab
+                        </a>
+                        <a href="assets/Aviral_Gupta_Resume.pdf" download="Aviral_Gupta_Resume.pdf" class="btn download">
+                            📥 Download PDF
+                        </a>
+                        <a href="resume.html" class="btn" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed); margin-top: 10px;">
+                            📋 View HTML Version
+                        </a>
+                    </div>
+                </embed>
+            </object>
+        </div>
+    </div>
+    
+    <script>
+        // Check if PDF loaded successfully
+        window.addEventListener('load', function() {
+            const pdfObject = document.getElementById('pdf-object');
+            const pdfEmbed = document.getElementById('pdf-embed');
+            
+            // Simple check - if the object/embed is very small, PDF probably didn't load
+            setTimeout(function() {
+                const objectHeight = pdfObject.offsetHeight;
+                const embedHeight = pdfEmbed.offsetHeight;
+                
+                if (objectHeight < 100 && embedHeight < 100) {
+                    console.log('PDF might not be displaying properly');
+                }
+            }, 2000);
+        });
+        
+        // Handle print functionality
+        window.addEventListener('beforeprint', function() {
+            // Try to print just the PDF
+            const pdfFrame = document.createElement('iframe');
+            pdfFrame.src = 'assets/Aviral_Gupta_Resume.pdf';
+            pdfFrame.style.display = 'none';
+            document.body.appendChild(pdfFrame);
+            
+            pdfFrame.onload = function() {
+                try {
+                    pdfFrame.contentWindow.print();
+                } catch (e) {
+                    console.log('Direct PDF printing not supported');
+                }
+                setTimeout(() => document.body.removeChild(pdfFrame), 1000);
+            };
+        });
+    </script>
+</body>
+</html>
