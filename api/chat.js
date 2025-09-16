@@ -1,7 +1,7 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
 // Initialize Gemini AI
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+const genAI = new GoogleGenerativeAI(process.env.Portfolio);
 
 // Portfolio context for the AI
 const PORTFOLIO_CONTEXT = `
@@ -99,7 +99,7 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: 'Message is required' });
     }
 
-    if (!process.env.GEMINI_API_KEY) {
+    if (!process.env.Portfolio) {
       return res.status(500).json({ error: 'Gemini API key not configured' });
     }
 
