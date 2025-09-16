@@ -70,8 +70,21 @@ function downloadResume() {
             " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
                 🖨️ Print/Save as PDF
             </button>
-            <button onclick="contactForResume()" style="
+            <button onclick="downloadPDFResume()" style="
                 background: linear-gradient(135deg, #f59e0b, #d97706);
+                color: white;
+                border: none;
+                padding: 12px 24px;
+                border-radius: 10px;
+                cursor: pointer;
+                font-weight: 600;
+                transition: all 0.3s ease;
+                font-size: 14px;
+            " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                📥 Download PDF
+            </button>
+            <button onclick="contactForResume()" style="
+                background: linear-gradient(135deg, #6b7280, #4b5563);
                 color: white;
                 border: none;
                 padding: 12px 24px;
@@ -110,17 +123,140 @@ function downloadResume() {
     
     // Add functions to global scope
     window.viewResumeOnline = function() {
-        window.open('resume.html', '_blank');
+        // Check if PDF exists, otherwise fallback to HTML version
+        const pdfPath = 'assets/Aviral_Gupta_Resume.pdf';
+        
+        // Create a new window to display the PDF
+        const resumeWindow = window.open('', '_blank');
+        resumeWindow.document.write(`
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <title>Aviral Gupta - Resume</title>
+                <style>
+                    body {
+                        margin: 0;
+                        padding: 20px;
+                        font-family: 'Inter', sans-serif;
+                        background: #f8fafc;
+                        display: flex;
+                        flex-direction: column;
+                        min-height: 100vh;
+                    }
+                    .header {
+                        text-align: center;
+                        margin-bottom: 20px;
+                        padding: 20px;
+                        background: linear-gradient(135deg, #1e293b, #334155);
+                        color: white;
+                        border-radius: 10px;
+                    }
+                    .pdf-container {
+                        flex: 1;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        background: white;
+                        border-radius: 10px;
+                        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                        padding: 20px;
+                        margin-bottom: 20px;
+                    }
+                    .pdf-viewer {
+                        width: 100%;
+                        height: 80vh;
+                        border: none;
+                        border-radius: 8px;
+                    }
+                    .download-btn {
+                        background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+                        color: white;
+                        border: none;
+                        padding: 12px 24px;
+                        border-radius: 8px;
+                        cursor: pointer;
+                        font-weight: 600;
+                        margin: 0 10px;
+                        text-decoration: none;
+                        display: inline-block;
+                    }
+                    .fallback-message {
+                        text-align: center;
+                        color: #64748b;
+                        padding: 40px;
+                    }
+                    .actions {
+                        text-align: center;
+                        margin-bottom: 20px;
+                    }
+                </style>
+            </head>
+            <body>
+                <div class="header">
+                    <h1>📄 Aviral Gupta - Resume</h1>
+                    <p>Computer Scientist • AI Engineer • Research Innovator</p>
+                </div>
+                <div class="actions">
+                    <a href="${pdfPath}" download="Aviral_Gupta_Resume.pdf" class="download-btn">
+                        📥 Download PDF
+                    </a>
+                    <button onclick="window.print()" class="download-btn" style="background: linear-gradient(135deg, #10b981, #047857);">
+                        🖨️ Print
+                    </button>
+                </div>
+                <div class="pdf-container">
+                    <iframe src="${pdfPath}#toolbar=1&navpanes=1&scrollbar=1" class="pdf-viewer" type="application/pdf">
+                        <div class="fallback-message">
+                            <h3>PDF Viewer Not Supported</h3>
+                            <p>Your browser doesn't support PDF viewing. Please download the resume using the button above.</p>
+                            <a href="${pdfPath}" download="Aviral_Gupta_Resume.pdf" class="download-btn">
+                                📥 Download Resume PDF
+                            </a>
+                        </div>
+                    </iframe>
+                </div>
+                <script>
+                    // Fallback if PDF doesn't load
+                    document.querySelector('.pdf-viewer').onerror = function() {
+                        this.style.display = 'none';
+                        document.querySelector('.fallback-message').style.display = 'block';
+                    };
+                </script>
+            </body>
+            </html>
+        `);
+        
         document.body.removeChild(modal);
     };
     
     window.printResume = function() {
-        const printWindow = window.open('resume.html?print=true', '_blank');
-        printWindow.addEventListener('load', function() {
-            setTimeout(() => {
-                printWindow.print();
-            }, 1000);
-        });
+        // Try to open PDF for printing, fallback to HTML version
+        const pdfPath = 'assets/Aviral_Gupta_Resume.pdf';
+        const printWindow = window.open(pdfPath, '_blank');
+        
+        // Fallback to HTML version if PDF fails
+        setTimeout(() => {
+            if (!printWindow || printWindow.closed) {
+                const htmlPrintWindow = window.open('resume.html?print=true', '_blank');
+                htmlPrintWindow.addEventListener('load', function() {
+                    setTimeout(() => {
+                        htmlPrintWindow.print();
+                    }, 1000);
+                });
+            }
+        }, 2000);
+        
+        document.body.removeChild(modal);
+    };
+    
+    window.downloadPDFResume = function() {
+        // Direct download of the PDF file
+        const link = document.createElement('a');
+        link.href = 'assets/Aviral_Gupta_Resume.pdf';
+        link.download = 'Aviral_Gupta_Resume.pdf';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
         document.body.removeChild(modal);
     };
     
