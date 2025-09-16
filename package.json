@@ -1,0 +1,24 @@
+{
+  "name": "aviral-portfolio",
+  "version": "1.0.0",
+  "description": "Aviral Gupta's Portfolio Website with AI Chatbot",
+  "main": "index.html",
+  "scripts": {
+    "dev": "vercel dev",
+    "build": "echo 'No build step needed for static site'",
+    "start": "vercel dev"
+  },
+  "dependencies": {
+    "@google/generative-ai": "^0.20.0"
+  },
+  "devDependencies": {},
+  "keywords": [
+    "portfolio",
+    "ai",
+    "chatbot",
+    "gemini",
+    "vercel"
+  ],
+  "author": "Aviral Gupta",
+  "license": "MIT"
+}

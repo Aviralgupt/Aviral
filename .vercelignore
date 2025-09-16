@@ -1,0 +1,9 @@
+# Ignore unnecessary files for deployment
+README.md
+DEPLOYMENT.md
+env.example
+.env.local
+.env.example
+*.log
+.DS_Store
+Thumbs.db

@@ -1,7 +1,16 @@
-# Aviral Gupta - Product Management Portfolio
+# Aviral Gupta - AI-Powered Portfolio Website
 
 ## Overview
-This portfolio website showcases my transition from technical implementation to product strategy, demonstrating the key principles outlined in the product management advice I received. The site now includes a dedicated "Product Management Portfolio" section that documents measurable impact, user-centered solutions, and strategic thinking.
+This modern portfolio website showcases Aviral Gupta's experience as an AI Engineer, Computer Scientist, and Research Innovator. The site features an intelligent AI chatbot powered by Google Gemini that can answer questions about Aviral's background, projects, skills, and experience in real-time.
+
+## 🚀 New Features
+
+### 🤖 AI Chatbot Assistant
+- **Powered by Google Gemini 1.5 Flash**: Advanced AI model for natural conversations
+- **Comprehensive Knowledge**: Detailed information about Aviral's education, experience, and projects
+- **Real-time Responses**: Instant answers to questions about skills, achievements, and background
+- **Modern UI**: Beautiful, responsive chat interface with smooth animations
+- **Context Awareness**: Maintains conversation history for better interactions
 
 ## Key Features
 
@@ -56,9 +65,20 @@ The new section demonstrates the core advice from the message:
 
 ### Frontend
 - **HTML5**: Semantic structure with accessibility features
-- **CSS3**: Modern design system with CSS custom properties
-- **JavaScript**: Interactive features and smooth animations
+- **CSS3**: Modern design system with CSS custom properties and Tailwind CSS
+- **JavaScript**: Interactive features, smooth animations, and AI chatbot integration
 - **Responsive Design**: Mobile-first approach with touch interactions
+
+### AI Integration
+- **Google Gemini API**: Serverless functions for AI-powered conversations
+- **Vercel Functions**: Backend API endpoints for secure AI communication
+- **Real-time Chat**: WebSocket-like experience with modern chat UI
+- **Context Management**: Conversation history and contextual responses
+
+### Deployment
+- **Vercel**: Optimized for serverless deployment with edge functions
+- **Environment Variables**: Secure API key management
+- **Automatic Deployments**: Git-based deployment workflow
 
 ### Features
 - **AOS (Animate On Scroll)**: Smooth reveal animations
@@ -101,20 +121,42 @@ The new section demonstrates the core advice from the message:
 
 ## Getting Started
 
+### Local Development
+
 1. **Clone the repository**
    ```bash
    git clone [repository-url]
    cd portfolio-website
    ```
 
-2. **Open in browser**
-   - Simply open `index.html` in any modern web browser
-   - No build process required
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-3. **Customize**
-   - Update content in `index.html`
-   - Modify styles in `styles.css`
-   - Add functionality in `script.js`
+3. **Set up environment variables**
+   - Copy `env.example` to `.env.local`
+   - Add your Google Gemini API key
+
+4. **Run locally with Vercel CLI**
+   ```bash
+   npm install -g vercel
+   vercel dev
+   ```
+
+### Deploy to Vercel
+
+1. **Quick Deploy**
+   - Connect your Git repository to Vercel
+   - Add `GEMINI_API_KEY` environment variable
+   - Deploy automatically
+
+2. **Detailed Instructions**
+   - See `DEPLOYMENT.md` for complete setup guide
+
+### Static Version (No AI)
+   - Simply open `index.html` in any modern web browser
+   - Chatbot will show an error message without API setup
 
 ## Browser Support
 - Chrome 80+
