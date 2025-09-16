@@ -8,21 +8,130 @@ AOS.init({
 
 // Download Resume Function
 function downloadResume() {
-    // Create a temporary link to download the resume
-    // For now, we'll generate a dynamic resume or you can upload a PDF file
+    // Create a modal with options
+    const modal = document.createElement('div');
+    modal.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        backdrop-filter: blur(10px);
+    `;
     
-    // Option 1: Alert user to contact for resume (temporary solution)
-    alert('Please contact me at aviralgupta@usf.edu to request my latest resume, or connect with me on LinkedIn!');
+    const modalContent = document.createElement('div');
+    modalContent.style.cssText = `
+        background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+        padding: 40px;
+        border-radius: 20px;
+        text-align: center;
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+        border: 1px solid rgba(59, 130, 246, 0.3);
+        max-width: 500px;
+        width: 90%;
+    `;
     
-    // Option 2: If you have a PDF file, uncomment the following lines:
-    /*
-    const link = document.createElement('a');
-    link.href = '/path/to/your/resume.pdf';
-    link.download = 'Aviral_Gupta_Resume.pdf';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    */
+    modalContent.innerHTML = `
+        <h3 style="color: #3b82f6; font-size: 24px; margin-bottom: 20px; font-weight: 600;">
+            📄 Resume Options
+        </h3>
+        <p style="color: #e2e8f0; margin-bottom: 30px; line-height: 1.6;">
+            Choose how you'd like to access my resume:
+        </p>
+        <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+            <button onclick="viewResumeOnline()" style="
+                background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+                color: white;
+                border: none;
+                padding: 12px 24px;
+                border-radius: 10px;
+                cursor: pointer;
+                font-weight: 600;
+                transition: all 0.3s ease;
+                font-size: 14px;
+            " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                🌐 View Online
+            </button>
+            <button onclick="printResume()" style="
+                background: linear-gradient(135deg, #10b981, #047857);
+                color: white;
+                border: none;
+                padding: 12px 24px;
+                border-radius: 10px;
+                cursor: pointer;
+                font-weight: 600;
+                transition: all 0.3s ease;
+                font-size: 14px;
+            " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                🖨️ Print/Save as PDF
+            </button>
+            <button onclick="contactForResume()" style="
+                background: linear-gradient(135deg, #f59e0b, #d97706);
+                color: white;
+                border: none;
+                padding: 12px 24px;
+                border-radius: 10px;
+                cursor: pointer;
+                font-weight: 600;
+                transition: all 0.3s ease;
+                font-size: 14px;
+            " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                📧 Request Latest
+            </button>
+        </div>
+        <button onclick="closeResumeModal()" style="
+            background: transparent;
+            color: #94a3b8;
+            border: 1px solid #475569;
+            padding: 8px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        " onmouseover="this.style.color='#e2e8f0'; this.style.borderColor='#64748b'" onmouseout="this.style.color='#94a3b8'; this.style.borderColor='#475569'">
+            Close
+        </button>
+    `;
+    
+    modal.appendChild(modalContent);
+    document.body.appendChild(modal);
+    
+    // Close modal when clicking outside
+    modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+            document.body.removeChild(modal);
+        }
+    });
+    
+    // Add functions to global scope
+    window.viewResumeOnline = function() {
+        window.open('resume.html', '_blank');
+        document.body.removeChild(modal);
+    };
+    
+    window.printResume = function() {
+        const printWindow = window.open('resume.html?print=true', '_blank');
+        printWindow.addEventListener('load', function() {
+            setTimeout(() => {
+                printWindow.print();
+            }, 1000);
+        });
+        document.body.removeChild(modal);
+    };
+    
+    window.contactForResume = function() {
+        window.open('mailto:aviralgupta@usf.edu?subject=Resume Request&body=Hi Aviral,%0D%0A%0D%0AI would like to request your latest resume.%0D%0A%0D%0AThank you!', '_blank');
+        document.body.removeChild(modal);
+    };
+    
+    window.closeResumeModal = function() {
+        document.body.removeChild(modal);
+    };
 }
 
 // Mobile Navigation Toggle

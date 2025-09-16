@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aviral Gupta - Resume</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: white;
+            font-size: 11px;
+        }
+        
+        .resume-container {
+            max-width: 8.5in;
+            margin: 0 auto;
+            padding: 0.5in;
+            background: white;
+            min-height: 11in;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #2563eb;
+            padding-bottom: 20px;
+        }
+        
+        .name {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1e40af;
+            margin-bottom: 5px;
+        }
+        
+        .title {
+            font-size: 16px;
+            color: #64748b;
+            margin-bottom: 15px;
+        }
+        
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            font-size: 10px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .section {
+            margin-bottom: 25px;
+        }
+        
+        .section-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1e40af;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 5px;
+        }
+        
+        .education-item, .experience-item {
+            margin-bottom: 15px;
+        }
+        
+        .degree, .position {
+            font-size: 12px;
+            font-weight: 600;
+            color: #1e293b;
+        }
+        
+        .institution, .company {
+            font-size: 11px;
+            color: #2563eb;
+            font-weight: 500;
+        }
+        
+        .date {
+            font-size: 10px;
+            color: #64748b;
+            font-style: italic;
+        }
+        
+        .description {
+            font-size: 10px;
+            color: #475569;
+            margin-top: 5px;
+        }
+        
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+        
+        .skill-category {
+            background: #f8fafc;
+            padding: 12px;
+            border-radius: 6px;
+            border-left: 3px solid #2563eb;
+        }
+        
+        .skill-category h4 {
+            font-size: 11px;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 8px;
+        }
+        
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+        }
+        
+        .skill-tag {
+            background: #e2e8f0;
+            color: #475569;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 9px;
+            font-weight: 500;
+        }
+        
+        .achievements-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+        
+        .achievement-item {
+            display: flex;
+            align-items: center;
+            background: #f0f9ff;
+            padding: 8px;
+            border-radius: 6px;
+            border-left: 3px solid #0ea5e9;
+        }
+        
+        .achievement-number {
+            font-size: 16px;
+            font-weight: 700;
+            color: #0ea5e9;
+            margin-right: 10px;
+            min-width: 30px;
+        }
+        
+        .achievement-text {
+            font-size: 10px;
+            color: #0f172a;
+        }
+        
+        .experience-list {
+            list-style: none;
+        }
+        
+        .experience-list li {
+            position: relative;
+            padding-left: 15px;
+            margin-bottom: 5px;
+            font-size: 10px;
+            color: #475569;
+        }
+        
+        .experience-list li::before {
+            content: "•";
+            color: #2563eb;
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+        
+        @media print {
+            body {
+                font-size: 10px;
+            }
+            .resume-container {
+                padding: 0.4in;
+            }
+            .header {
+                margin-bottom: 20px;
+            }
+            .section {
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="resume-container">
+        <!-- Header -->
+        <div class="header">
+            <h1 class="name">Aviral Gupta</h1>
+            <p class="title">Computer Scientist • AI Engineer • Research Innovator</p>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <span>📧</span>
+                    <span>aviralgupta@usf.edu</span>
+                </div>
+                <div class="contact-item">
+                    <span>🔗</span>
+                    <span>linkedin.com/in/aviral-gupt</span>
+                </div>
+                <div class="contact-item">
+                    <span>🐙</span>
+                    <span>github.com/Aviralgupt</span>
+                </div>
+                <div class="contact-item">
+                    <span>🌐</span>
+                    <span>Portfolio Website</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Education -->
+        <div class="section">
+            <h2 class="section-title">Education</h2>
+            <div class="education-item">
+                <div class="degree">Bachelor of Science in Computer Science & Business Analytics</div>
+                <div class="institution">University of South Florida (USF)</div>
+                <div class="date">2021 - 2025 (Expected)</div>
+                <div class="description">
+                    • Judy Genshaft Honors College - Green and Gold Presidential Scholar<br>
+                    • Focus: AI/ML, Distributed Systems, and Scalable Solutions<br>
+                    • Relevant Coursework: Data Structures, Algorithms, Machine Learning, Database Systems, Software Engineering
+                </div>
+            </div>
+        </div>
+
+        <!-- Professional Experience -->
+        <div class="section">
+            <h2 class="section-title">Professional Experience</h2>
+            
+            <div class="experience-item">
+                <div class="position">AI Solutions Intern & Technical Product Lead</div>
+                <div class="company">Bake More Pies</div>
+                <div class="date">2023 - Present</div>
+                <ul class="experience-list">
+                    <li>Developed AI solutions platform with microservices architecture using Python, Docker, and Kubernetes</li>
+                    <li>Achieved 60% performance improvement and 99.9% system uptime through optimization and monitoring</li>
+                    <li>Reduced infrastructure costs by 40% through efficient cloud resource management and containerization</li>
+                    <li>Built containerized solutions with automated CI/CD pipelines for seamless deployment</li>
+                    <li>Led cross-functional team of 5 developers in agile development practices</li>
+                </ul>
+            </div>
+
+            <div class="experience-item">
+                <div class="position">Faculty Honors Student & Technical Lead</div>
+                <div class="company">USF Research Infrastructure</div>
+                <div class="date">2023 - 2024</div>
+                <ul class="experience-list">
+                    <li>Re-architected research infrastructure and data processing systems using Python and PostgreSQL</li>
+                    <li>Improved research productivity and data accessibility by 77% through query optimization</li>
+                    <li>Built ETL pipelines processing 10TB+ of research data with 99.5% accuracy</li>
+                    <li>Implemented backend optimization systems reducing query response time by 77%</li>
+                    <li>Collaborated with faculty researchers to identify and solve computational bottlenecks</li>
+                </ul>
+            </div>
+
+            <div class="experience-item">
+                <div class="position">Student Leader & Community Builder</div>
+                <div class="company">USF Leadership Programs</div>
+                <div class="date">2022 - 2024</div>
+                <ul class="experience-list">
+                    <li>Led multiple student organizations with 200+ members across diverse backgrounds</li>
+                    <li>Developed leadership skills through mentoring programs and community initiatives</li>
+                    <li>Organized technical workshops and coding bootcamps for 100+ students</li>
+                    <li>Built inclusive environments fostering collaboration and innovation</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Technical Skills -->
+        <div class="section">
+            <h2 class="section-title">Technical Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h4>Programming Languages</h4>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">JavaScript</span>
+                        <span class="skill-tag">Java</span>
+                        <span class="skill-tag">C++</span>
+                        <span class="skill-tag">SQL</span>
+                        <span class="skill-tag">TypeScript</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h4>AI/ML & Data Science</h4>
+                    <div class="skill-tags">
+                        <span class="skill-tag">TensorFlow</span>
+                        <span class="skill-tag">PyTorch</span>
+                        <span class="skill-tag">Scikit-learn</span>
+                        <span class="skill-tag">Pandas</span>
+                        <span class="skill-tag">NumPy</span>
+                        <span class="skill-tag">NLP</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h4>Web & Cloud Technologies</h4>
+                    <div class="skill-tags">
+                        <span class="skill-tag">React</span>
+                        <span class="skill-tag">Node.js</span>
+                        <span class="skill-tag">AWS</span>
+                        <span class="skill-tag">Docker</span>
+                        <span class="skill-tag">Kubernetes</span>
+                        <span class="skill-tag">MongoDB</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h4>Databases & Tools</h4>
+                    <div class="skill-tags">
+                        <span class="skill-tag">PostgreSQL</span>
+                        <span class="skill-tag">MongoDB</span>
+                        <span class="skill-tag">Redis</span>
+                        <span class="skill-tag">Git</span>
+                        <span class="skill-tag">Linux</span>
+                        <span class="skill-tag">Jupyter</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h4>DevOps & Infrastructure</h4>
+                    <div class="skill-tags">
+                        <span class="skill-tag">CI/CD</span>
+                        <span class="skill-tag">GitHub Actions</span>
+                        <span class="skill-tag">Terraform</span>
+                        <span class="skill-tag">Microservices</span>
+                        <span class="skill-tag">API Design</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h4>Soft Skills</h4>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Leadership</span>
+                        <span class="skill-tag">Team Management</span>
+                        <span class="skill-tag">Agile/Scrum</span>
+                        <span class="skill-tag">Communication</span>
+                        <span class="skill-tag">Problem Solving</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Key Achievements -->
+        <div class="section">
+            <h2 class="section-title">Key Achievements</h2>
+            <div class="achievements-list">
+                <div class="achievement-item">
+                    <span class="achievement-number">60%</span>
+                    <span class="achievement-text">Performance improvement in AI solutions platform</span>
+                </div>
+                <div class="achievement-item">
+                    <span class="achievement-number">77%</span>
+                    <span class="achievement-text">Data query optimization in research infrastructure</span>
+                </div>
+                <div class="achievement-item">
+                    <span class="achievement-number">40%</span>
+                    <span class="achievement-text">Infrastructure cost reduction through optimization</span>
+                </div>
+                <div class="achievement-item">
+                    <span class="achievement-number">99.9%</span>
+                    <span class="achievement-text">System uptime achieved in production environments</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Projects -->
+        <div class="section">
+            <h2 class="section-title">Notable Projects</h2>
+            
+            <div class="experience-item">
+                <div class="position">AI-Powered Portfolio Chatbot</div>
+                <div class="company">Personal Project</div>
+                <div class="date">2024</div>
+                <ul class="experience-list">
+                    <li>Built intelligent chatbot using Google Gemini API and JavaScript for portfolio website</li>
+                    <li>Implemented serverless architecture with Vercel for scalable deployment</li>
+                    <li>Created responsive UI with modern design patterns and smooth user interactions</li>
+                </ul>
+            </div>
+
+            <div class="experience-item">
+                <div class="position">Microservices Architecture Platform</div>
+                <div class="company">Bake More Pies</div>
+                <div class="date">2023</div>
+                <ul class="experience-list">
+                    <li>Designed and implemented scalable microservices using Docker and Kubernetes</li>
+                    <li>Achieved sub-200ms response times through efficient caching and load balancing</li>
+                    <li>Integrated monitoring and logging solutions for production-grade reliability</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Interests -->
+        <div class="section">
+            <h2 class="section-title">Professional Interests</h2>
+            <div class="description">
+                Artificial Intelligence & Machine Learning • Cloud Computing & DevOps • Data Science & Analytics • 
+                Research & Innovation • IoT & Embedded Systems • Leadership & Mentoring • Community Building • 
+                Travel & Cultural Exploration • Culinary Adventures • Photography & Technology
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add print functionality
+        window.addEventListener('load', function() {
+            // Auto-optimize for printing
+            if (window.location.search.includes('print=true')) {
+                window.print();
+            }
+        });
+    </script>
+</body>
+</html>
