@@ -405,14 +405,23 @@ window.addEventListener('scroll', () => {
 function animateCounter(element, target, duration = 2000) {
     let start = 0;
     const increment = target / (duration / 16);
+    const isDecimal = target % 1 !== 0; // Check if target has decimal places
     
     function updateCounter() {
         start += increment;
         if (start < target) {
-            element.textContent = Math.floor(start);
+            if (isDecimal) {
+                element.textContent = start.toFixed(1);
+            } else {
+                element.textContent = Math.floor(start);
+            }
             requestAnimationFrame(updateCounter);
         } else {
-            element.textContent = target;
+            if (isDecimal) {
+                element.textContent = target.toFixed(1);
+            } else {
+                element.textContent = target;
+            }
         }
     }
     
@@ -420,14 +429,14 @@ function animateCounter(element, target, duration = 2000) {
 }
 
 // Trigger counter animation when hero section is visible
-const heroSection = document.querySelector('.hero');
+const heroSection = document.querySelector('#home');
 const statNumbers = document.querySelectorAll('.stat-number');
 
 const heroObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             statNumbers.forEach(stat => {
-                const target = parseInt(stat.getAttribute('data-target'));
+                const target = parseFloat(stat.getAttribute('data-target'));
                 animateCounter(stat, target);
             });
             heroObserver.unobserve(entry.target);
