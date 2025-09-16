@@ -156,61 +156,161 @@
     
     <div class="viewer-container">
         <div id="pdf-container">
-            <!-- Try different PDF embedding methods -->
-            <object id="pdf-object" data="assets/Aviral_Gupta_Resume.pdf#toolbar=1&navpanes=1&scrollbar=1" type="application/pdf" class="pdf-embed">
-                <embed id="pdf-embed" src="assets/Aviral_Gupta_Resume.pdf#toolbar=1&navpanes=1&scrollbar=1" type="application/pdf" class="pdf-embed">
-                    <div class="fallback">
-                        <div class="pdf-icon">📄</div>
-                        <h3>PDF Viewer Not Available</h3>
-                        <p>Your browser doesn't support inline PDF viewing. No worries! You can still access the resume using the options below:</p>
-                        <a href="assets/Aviral_Gupta_Resume.pdf" target="_blank" class="btn">
-                            🔗 Open PDF in New Tab
-                        </a>
-                        <a href="assets/Aviral_Gupta_Resume.pdf" download="Aviral_Gupta_Resume.pdf" class="btn download">
-                            📥 Download PDF
-                        </a>
-                        <a href="resume.html" class="btn" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed); margin-top: 10px;">
-                            📋 View HTML Version
-                        </a>
-                    </div>
-                </embed>
-            </object>
+            <!-- PDF.js Universal Viewer -->
+            <div id="pdf-viewer" style="display: none;">
+                <div id="pdf-controls" style="text-align: center; margin-bottom: 10px; padding: 10px; background: rgba(30, 41, 59, 0.8); border-radius: 8px;">
+                    <button id="prev-page" class="btn" style="font-size: 12px; padding: 5px 10px; margin: 2px;">← Previous</button>
+                    <span id="page-info" style="color: #e2e8f0; margin: 0 15px;">Page 1 of 1</span>
+                    <button id="next-page" class="btn" style="font-size: 12px; padding: 5px 10px; margin: 2px;">Next →</button>
+                    <button id="zoom-in" class="btn" style="font-size: 12px; padding: 5px 10px; margin: 2px;">Zoom +</button>
+                    <button id="zoom-out" class="btn" style="font-size: 12px; padding: 5px 10px; margin: 2px;">Zoom -</button>
+                </div>
+                <div id="pdf-canvas-container" style="text-align: center; overflow: auto; max-height: 70vh; background: white; border-radius: 8px; padding: 20px;">
+                    <canvas id="pdf-canvas" style="border: 1px solid #ddd; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"></canvas>
+                </div>
+            </div>
+            
+            <!-- Loading state -->
+            <div id="pdf-loading" style="text-align: center; color: #e2e8f0; padding: 40px;">
+                <div style="font-size: 48px; margin-bottom: 20px;">⏳</div>
+                <h3>Loading Resume...</h3>
+                <p>Please wait while we prepare your PDF for viewing</p>
+            </div>
+            
+            <!-- Fallback for when PDF.js fails -->
+            <div id="pdf-fallback" class="fallback" style="display: none;">
+                <div class="pdf-icon">📄</div>
+                <h3>Universal PDF Viewer</h3>
+                <p>Click below to access the resume in different formats:</p>
+                <a href="assets/Aviral_Gupta_Resume.pdf" target="_blank" class="btn">
+                    🔗 Open PDF in New Tab
+                </a>
+                <a href="assets/Aviral_Gupta_Resume.pdf" download="Aviral_Gupta_Resume.pdf" class="btn download">
+                    📥 Download PDF
+                </a>
+                <a href="resume.html" class="btn" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed); margin-top: 10px;">
+                    📋 View HTML Version
+                </a>
+            </div>
         </div>
     </div>
     
+    <!-- PDF.js Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    
     <script>
-        // Check if PDF loaded successfully
-        window.addEventListener('load', function() {
-            const pdfObject = document.getElementById('pdf-object');
-            const pdfEmbed = document.getElementById('pdf-embed');
+        // PDF.js Configuration
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+        
+        let pdfDoc = null;
+        let pageNum = 1;
+        let pageRendering = false;
+        let pageNumPending = null;
+        let scale = 1.2;
+        const canvas = document.getElementById('pdf-canvas');
+        const ctx = canvas.getContext('2d');
+        
+        // Load and render PDF
+        function loadPDF() {
+            const loadingDiv = document.getElementById('pdf-loading');
+            const viewerDiv = document.getElementById('pdf-viewer');
+            const fallbackDiv = document.getElementById('pdf-fallback');
             
-            // Simple check - if the object/embed is very small, PDF probably didn't load
-            setTimeout(function() {
-                const objectHeight = pdfObject.offsetHeight;
-                const embedHeight = pdfEmbed.offsetHeight;
+            pdfjsLib.getDocument('assets/Aviral_Gupta_Resume.pdf').promise.then(function(pdfDoc_) {
+                pdfDoc = pdfDoc_;
+                document.getElementById('page-info').textContent = `Page ${pageNum} of ${pdfDoc.numPages}`;
                 
-                if (objectHeight < 100 && embedHeight < 100) {
-                    console.log('PDF might not be displaying properly');
-                }
-            }, 2000);
-        });
+                // Hide loading, show viewer
+                loadingDiv.style.display = 'none';
+                viewerDiv.style.display = 'block';
+                
+                // Render the first page
+                renderPage(pageNum);
+                
+            }).catch(function(error) {
+                console.error('Error loading PDF:', error);
+                loadingDiv.style.display = 'none';
+                fallbackDiv.style.display = 'block';
+            });
+        }
+        
+        // Render a specific page
+        function renderPage(num) {
+            pageRendering = true;
+            
+            pdfDoc.getPage(num).then(function(page) {
+                const viewport = page.getViewport({scale: scale});
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
+                
+                const renderContext = {
+                    canvasContext: ctx,
+                    viewport: viewport
+                };
+                
+                const renderTask = page.render(renderContext);
+                
+                renderTask.promise.then(function() {
+                    pageRendering = false;
+                    if (pageNumPending !== null) {
+                        renderPage(pageNumPending);
+                        pageNumPending = null;
+                    }
+                });
+            });
+            
+            document.getElementById('page-info').textContent = `Page ${num} of ${pdfDoc.numPages}`;
+        }
+        
+        // Queue rendering if another page is being rendered
+        function queueRenderPage(num) {
+            if (pageRendering) {
+                pageNumPending = num;
+            } else {
+                renderPage(num);
+            }
+        }
+        
+        // Previous page
+        function onPrevPage() {
+            if (pageNum <= 1) return;
+            pageNum--;
+            queueRenderPage(pageNum);
+        }
+        
+        // Next page
+        function onNextPage() {
+            if (pageNum >= pdfDoc.numPages) return;
+            pageNum++;
+            queueRenderPage(pageNum);
+        }
+        
+        // Zoom in
+        function onZoomIn() {
+            scale += 0.2;
+            queueRenderPage(pageNum);
+        }
+        
+        // Zoom out
+        function onZoomOut() {
+            if (scale <= 0.4) return;
+            scale -= 0.2;
+            queueRenderPage(pageNum);
+        }
+        
+        // Event listeners
+        document.getElementById('prev-page').addEventListener('click', onPrevPage);
+        document.getElementById('next-page').addEventListener('click', onNextPage);
+        document.getElementById('zoom-in').addEventListener('click', onZoomIn);
+        document.getElementById('zoom-out').addEventListener('click', onZoomOut);
+        
+        // Load PDF when page loads
+        window.addEventListener('load', loadPDF);
         
         // Handle print functionality
         window.addEventListener('beforeprint', function() {
-            // Try to print just the PDF
-            const pdfFrame = document.createElement('iframe');
-            pdfFrame.src = 'assets/Aviral_Gupta_Resume.pdf';
-            pdfFrame.style.display = 'none';
-            document.body.appendChild(pdfFrame);
-            
-            pdfFrame.onload = function() {
-                try {
-                    pdfFrame.contentWindow.print();
-                } catch (e) {
-                    console.log('Direct PDF printing not supported');
-                }
-                setTimeout(() => document.body.removeChild(pdfFrame), 1000);
-            };
+            // Open PDF in new tab for printing
+            window.open('assets/Aviral_Gupta_Resume.pdf', '_blank');
         });
     </script>
 </body>

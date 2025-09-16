@@ -6,126 +6,233 @@ AOS.init({
     offset: 100
 });
 
-// Download Resume Function
+// Floating Resume Action Button
+let resumeButtonExpanded = false;
+
 function downloadResume() {
-    // Create a modal with options
-    const modal = document.createElement('div');
-    modal.style.cssText = `
+    createFloatingResumeButton();
+}
+
+function createFloatingResumeButton() {
+    // Remove existing button if any
+    const existingButton = document.getElementById('floating-resume-button');
+    if (existingButton) {
+        existingButton.remove();
+    }
+
+    // Create floating button container
+    const floatingContainer = document.createElement('div');
+    floatingContainer.id = 'floating-resume-button';
+    floatingContainer.style.cssText = `
         position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.8);
+        bottom: 30px;
+        right: 30px;
+        z-index: 10000;
+        font-family: 'Inter', sans-serif;
+    `;
+
+    // Create main action button
+    const mainButton = document.createElement('button');
+    mainButton.id = 'main-resume-btn';
+    mainButton.style.cssText = `
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+        border: none;
+        cursor: pointer;
+        box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         display: flex;
-        justify-content: center;
         align-items: center;
-        z-index: 9999;
-        backdrop-filter: blur(10px);
+        justify-content: center;
+        font-size: 24px;
+        position: relative;
+        overflow: hidden;
     `;
     
-    const modalContent = document.createElement('div');
-    modalContent.style.cssText = `
-        background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
-        padding: 40px;
-        border-radius: 20px;
-        text-align: center;
-        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
-        border: 1px solid rgba(59, 130, 246, 0.3);
-        max-width: 500px;
-        width: 90%;
+    mainButton.innerHTML = `
+        <span id="main-btn-icon" style="transition: all 0.3s ease;">📄</span>
+        <div style="position: absolute; top: -2px; right: -2px; width: 8px; height: 8px; background: #10b981; border-radius: 50%; animation: pulse 2s infinite;"></div>
     `;
-    
-    modalContent.innerHTML = `
-        <h3 style="color: #3b82f6; font-size: 24px; margin-bottom: 20px; font-weight: 600;">
-            📄 Resume Options
-        </h3>
-        <p style="color: #e2e8f0; margin-bottom: 30px; line-height: 1.6;">
-            Choose how you'd like to access my resume:
-        </p>
-        <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
-            <button onclick="viewResumeOnline()" style="
-                background: linear-gradient(135deg, #3b82f6, #1d4ed8);
-                color: white;
-                border: none;
-                padding: 12px 24px;
-                border-radius: 10px;
-                cursor: pointer;
-                font-weight: 600;
-                transition: all 0.3s ease;
-                font-size: 14px;
-            " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-                🌐 View Online
-            </button>
-            <button onclick="printResume()" style="
-                background: linear-gradient(135deg, #10b981, #047857);
-                color: white;
-                border: none;
-                padding: 12px 24px;
-                border-radius: 10px;
-                cursor: pointer;
-                font-weight: 600;
-                transition: all 0.3s ease;
-                font-size: 14px;
-            " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-                🖨️ Print/Save as PDF
-            </button>
-            <button onclick="downloadPDFResume()" style="
-                background: linear-gradient(135deg, #f59e0b, #d97706);
-                color: white;
-                border: none;
-                padding: 12px 24px;
-                border-radius: 10px;
-                cursor: pointer;
-                font-weight: 600;
-                transition: all 0.3s ease;
-                font-size: 14px;
-            " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-                📥 Download PDF
-            </button>
-            <button onclick="contactForResume()" style="
-                background: linear-gradient(135deg, #6b7280, #4b5563);
-                color: white;
-                border: none;
-                padding: 12px 24px;
-                border-radius: 10px;
-                cursor: pointer;
-                font-weight: 600;
-                transition: all 0.3s ease;
-                font-size: 14px;
-            " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-                📧 Request Latest
-            </button>
-        </div>
-        <button onclick="closeResumeModal()" style="
-            background: transparent;
-            color: #94a3b8;
-            border: 1px solid #475569;
-            padding: 8px 20px;
-            border-radius: 8px;
+
+    // Create options container
+    const optionsContainer = document.createElement('div');
+    optionsContainer.id = 'resume-options';
+    optionsContainer.style.cssText = `
+        position: absolute;
+        bottom: 70px;
+        right: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        opacity: 0;
+        transform: translateY(20px) scale(0.8);
+        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        pointer-events: none;
+    `;
+
+    // Create option buttons
+    const options = [
+        { icon: '🌐', text: 'View Online', action: 'viewResumeOnline', color: 'linear-gradient(135deg, #3b82f6, #1d4ed8)' },
+        { icon: '📥', text: 'Download', action: 'downloadPDFResume', color: 'linear-gradient(135deg, #10b981, #047857)' },
+        { icon: '🖨️', text: 'Print', action: 'printResume', color: 'linear-gradient(135deg, #f59e0b, #d97706)' },
+        { icon: '📧', text: 'Email Me', action: 'contactForResume', color: 'linear-gradient(135deg, #8b5cf6, #7c3aed)' }
+    ];
+
+    options.forEach((option, index) => {
+        const optionButton = document.createElement('button');
+        optionButton.style.cssText = `
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 20px;
+            background: ${option.color};
+            border: none;
+            border-radius: 25px;
+            color: white;
+            font-weight: 600;
+            font-size: 14px;
             cursor: pointer;
-            margin-top: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             transition: all 0.3s ease;
-        " onmouseover="this.style.color='#e2e8f0'; this.style.borderColor='#64748b'" onmouseout="this.style.color='#94a3b8'; this.style.borderColor='#475569'">
-            Close
-        </button>
+            white-space: nowrap;
+            transform: translateX(10px);
+            opacity: 0;
+            animation: slideInOption 0.3s ease forwards;
+            animation-delay: ${index * 0.1}s;
+        `;
+        
+        optionButton.innerHTML = `
+            <span style="font-size: 16px;">${option.icon}</span>
+            <span>${option.text}</span>
+        `;
+        
+        optionButton.addEventListener('click', function() {
+            window[option.action]();
+            closeFloatingButton();
+        });
+        
+        optionButton.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateX(0) scale(1.05)';
+            this.style.boxShadow = '0 6px 20px rgba(0, 0, 0, 0.3)';
+        });
+        
+        optionButton.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateX(0) scale(1)';
+            this.style.boxShadow = '0 4px 15px rgba(0, 0, 0, 0.2)';
+        });
+        
+        optionsContainer.appendChild(optionButton);
+    });
+
+    // Add close button
+    const closeButton = document.createElement('button');
+    closeButton.style.cssText = `
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #6b7280, #4b5563);
+        border: none;
+        cursor: pointer;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+        color: white;
+        align-self: center;
+        margin-top: 8px;
+        opacity: 0;
+        animation: slideInOption 0.3s ease forwards;
+        animation-delay: 0.4s;
     `;
     
-    modal.appendChild(modalContent);
-    document.body.appendChild(modal);
-    
-    // Close modal when clicking outside
-    modal.addEventListener('click', function(e) {
-        if (e.target === modal) {
-            document.body.removeChild(modal);
+    closeButton.innerHTML = '✕';
+    closeButton.addEventListener('click', closeFloatingButton);
+    optionsContainer.appendChild(closeButton);
+
+    // Toggle functionality
+    mainButton.addEventListener('click', function() {
+        if (resumeButtonExpanded) {
+            closeFloatingButton();
+        } else {
+            expandFloatingButton();
         }
     });
+
+    // Assemble the button
+    floatingContainer.appendChild(optionsContainer);
+    floatingContainer.appendChild(mainButton);
+    document.body.appendChild(floatingContainer);
+
+    // Add CSS animations
+    if (!document.getElementById('floating-button-styles')) {
+        const style = document.createElement('style');
+        style.id = 'floating-button-styles';
+        style.textContent = `
+            @keyframes slideInOption {
+                from {
+                    opacity: 0;
+                    transform: translateX(10px) scale(0.8);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateX(0) scale(1);
+                }
+            }
+            
+            @keyframes pulse {
+                0%, 100% { opacity: 1; transform: scale(1); }
+                50% { opacity: 0.7; transform: scale(1.2); }
+            }
+        `;
+        document.head.appendChild(style);
+    }
+
+    // Auto-expand on first creation
+    setTimeout(() => expandFloatingButton(), 500);
+}
+
+function expandFloatingButton() {
+    resumeButtonExpanded = true;
+    const optionsContainer = document.getElementById('resume-options');
+    const mainBtnIcon = document.getElementById('main-btn-icon');
+    const mainBtn = document.getElementById('main-resume-btn');
     
+    if (optionsContainer && mainBtnIcon && mainBtn) {
+        optionsContainer.style.opacity = '1';
+        optionsContainer.style.transform = 'translateY(0) scale(1)';
+        optionsContainer.style.pointerEvents = 'auto';
+        
+        mainBtnIcon.innerHTML = '✕';
+        mainBtn.style.background = 'linear-gradient(135deg, #ef4444, #dc2626)';
+        mainBtn.style.transform = 'rotate(90deg)';
+    }
+}
+
+function closeFloatingButton() {
+    resumeButtonExpanded = false;
+    const optionsContainer = document.getElementById('resume-options');
+    const mainBtnIcon = document.getElementById('main-btn-icon');
+    const mainBtn = document.getElementById('main-resume-btn');
+    
+    if (optionsContainer && mainBtnIcon && mainBtn) {
+        optionsContainer.style.opacity = '0';
+        optionsContainer.style.transform = 'translateY(20px) scale(0.8)';
+        optionsContainer.style.pointerEvents = 'none';
+        
+        mainBtnIcon.innerHTML = '📄';
+        mainBtn.style.background = 'linear-gradient(135deg, #3b82f6, #1d4ed8)';
+        mainBtn.style.transform = 'rotate(0deg)';
+    }
+}
+
     // Add functions to global scope
     window.viewResumeOnline = function() {
         // Open the dedicated PDF viewer page
         window.open('pdf-viewer.html', '_blank');
-        document.body.removeChild(modal);
     };
     
     window.viewResumeOnlineOld = function() {
@@ -287,7 +394,6 @@ function downloadResume() {
             }
         }, 2000);
         
-        document.body.removeChild(modal);
     };
     
     window.downloadPDFResume = function() {
@@ -298,16 +404,10 @@ function downloadResume() {
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
-        document.body.removeChild(modal);
     };
     
     window.contactForResume = function() {
         window.open('mailto:aviralgupta@usf.edu?subject=Resume Request&body=Hi Aviral,%0D%0A%0D%0AI would like to request your latest resume.%0D%0A%0D%0AThank you!', '_blank');
-        document.body.removeChild(modal);
-    };
-    
-    window.closeResumeModal = function() {
-        document.body.removeChild(modal);
     };
 }
 
