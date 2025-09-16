@@ -6,6 +6,14 @@ AOS.init({
     offset: 100
 });
 
+// Auto-create floating resume button when page loads
+window.addEventListener('load', function() {
+    // Wait a bit for the page to fully load, then show the floating button
+    setTimeout(() => {
+        createFloatingResumeButton();
+    }, 2000);
+});
+
 // Floating Resume Action Button
 let resumeButtonExpanded = false;
 
@@ -14,11 +22,14 @@ function downloadResume() {
 }
 
 function createFloatingResumeButton() {
-    // Remove existing button if any
-    const existingButton = document.getElementById('floating-resume-button');
-    if (existingButton) {
-        existingButton.remove();
-    }
+    try {
+        console.log('Creating floating resume button...');
+        
+        // Remove existing button if any
+        const existingButton = document.getElementById('floating-resume-button');
+        if (existingButton) {
+            existingButton.remove();
+        }
 
     // Create floating button container
     const floatingContainer = document.createElement('div');
@@ -193,6 +204,57 @@ function createFloatingResumeButton() {
 
     // Auto-expand on first creation
     setTimeout(() => expandFloatingButton(), 500);
+    
+    console.log('Floating resume button created successfully!');
+    
+    } catch (error) {
+        console.error('Error creating floating resume button:', error);
+        // Fallback: create a simple floating button
+        createSimpleFloatingButton();
+    }
+}
+
+function createSimpleFloatingButton() {
+    const simpleButton = document.createElement('div');
+    simpleButton.style.cssText = `
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+        z-index: 10000;
+        font-size: 24px;
+        color: white;
+        transition: all 0.3s ease;
+    `;
+    simpleButton.innerHTML = '📄';
+    simpleButton.title = 'Resume Options';
+    
+    simpleButton.addEventListener('click', function() {
+        // Try the original function, or fallback to direct PDF download
+        try {
+            downloadPDFResume();
+        } catch (e) {
+            window.open('assets/Aviral_Gupta_Resume.pdf', '_blank');
+        }
+    });
+    
+    simpleButton.addEventListener('mouseenter', function() {
+        this.style.transform = 'scale(1.1)';
+    });
+    
+    simpleButton.addEventListener('mouseleave', function() {
+        this.style.transform = 'scale(1)';
+    });
+    
+    document.body.appendChild(simpleButton);
 }
 
 function expandFloatingButton() {
@@ -396,20 +458,43 @@ function closeFloatingButton() {
         
     };
     
-    window.downloadPDFResume = function() {
-        // Direct download of the PDF file
-        const link = document.createElement('a');
-        link.href = 'assets/Aviral_Gupta_Resume.pdf';
-        link.download = 'Aviral_Gupta_Resume.pdf';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-    };
+// Global resume functions
+window.downloadPDFResume = function() {
+    // Direct download of the PDF file
+    const link = document.createElement('a');
+    link.href = 'assets/Aviral_Gupta_Resume.pdf';
+    link.download = 'Aviral_Gupta_Resume.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+};
+
+window.contactForResume = function() {
+    window.open('mailto:aviralgupta@usf.edu?subject=Resume Request&body=Hi Aviral,%0D%0A%0D%0AI would like to request your latest resume.%0D%0A%0D%0AThank you!', '_blank');
+};
+
+window.printResume = function() {
+    // Try to open PDF for printing, fallback to HTML version
+    const pdfPath = 'assets/Aviral_Gupta_Resume.pdf';
+    const printWindow = window.open(pdfPath, '_blank');
     
-    window.contactForResume = function() {
-        window.open('mailto:aviralgupta@usf.edu?subject=Resume Request&body=Hi Aviral,%0D%0A%0D%0AI would like to request your latest resume.%0D%0A%0D%0AThank you!', '_blank');
-    };
-}
+    // Fallback to HTML version if PDF fails
+    setTimeout(() => {
+        if (!printWindow || printWindow.closed) {
+            const htmlPrintWindow = window.open('resume.html?print=true', '_blank');
+            htmlPrintWindow.addEventListener('load', function() {
+                setTimeout(() => {
+                    htmlPrintWindow.print();
+                }, 1000);
+            });
+        }
+    }, 2000);
+};
+
+window.viewResumeOnline = function() {
+    // Open the dedicated PDF viewer page
+    window.open('pdf-viewer.html', '_blank');
+};
 
 // Mobile Navigation Toggle
 const hamburger = document.querySelector('.hamburger');
