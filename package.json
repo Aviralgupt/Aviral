@@ -8,6 +8,9 @@
     "build": "echo 'No build step needed for static site'",
     "start": "vercel dev"
   },
+  "engines": {
+    "node": "20.x"
+  },
   "dependencies": {
     "@google/generative-ai": "^0.20.0"
   },
