@@ -274,6 +274,7 @@
                 <ul class="hidden md:flex space-x-8">
                     <li><a href="#home" class="text-gray-300 hover:text-primary-400 transition-colors duration-300 font-medium">Home</a></li>
                     <li><a href="#about" class="text-gray-300 hover:text-primary-400 transition-colors duration-300 font-medium">About</a></li>
+                    <li><a href="#resume" class="text-gray-300 hover:text-primary-400 transition-colors duration-300 font-medium">Resume</a></li>
                     <li><a href="#experience" class="text-gray-300 hover:text-primary-400 transition-colors duration-300 font-medium">Experience</a></li>
                     <li><a href="#product-portfolio" class="text-gray-300 hover:text-primary-400 transition-colors duration-300 font-medium">Product Portfolio</a></li>
                     <li><a href="#timeline" class="text-gray-300 hover:text-primary-400 transition-colors duration-300 font-medium">Timeline</a></li>
@@ -473,6 +474,209 @@
                                 <span class="px-4 py-2 bg-dark-700 text-accent-300 rounded-full border border-accent-500/30 hover:border-accent-500/60 transition-colors duration-300">Kubernetes</span>
                                 <span class="px-4 py-2 bg-dark-700 text-accent-300 rounded-full border border-accent-500/30 hover:border-accent-500/60 transition-colors duration-300">GitHub Actions</span>
                                 <span class="px-4 py-2 bg-dark-700 text-accent-300 rounded-full border border-accent-500/30 hover:border-accent-500/60 transition-colors duration-300">Linux</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Resume Section -->
+    <section id="resume" class="py-24 bg-dark-900 relative overflow-hidden">
+        <!-- Background Pattern -->
+        <div class="absolute inset-0 opacity-5">
+            <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-primary-500 rounded-full mix-blend-multiply filter blur-3xl animate-pulse"></div>
+            <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-accent-500 rounded-full mix-blend-multiply filter blur-3xl animate-pulse" style="animation-delay: 3s;"></div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl lg:text-5xl font-bold text-white mb-6 font-playfair">Resume</h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-primary-500 to-accent-500 mx-auto rounded-full mb-6"></div>
+                <p class="text-xl text-gray-400 max-w-3xl mx-auto">
+                    Download my complete resume or view my professional summary below
+                </p>
+            </div>
+
+            <!-- Download Button -->
+            <div class="text-center mb-16" data-aos="fade-up" data-aos-delay="200">
+                <button onclick="downloadResume()" class="group relative inline-flex items-center px-8 py-4 bg-gradient-to-r from-primary-500 to-accent-500 text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-primary-500/25 transition-all duration-300 transform hover:scale-105">
+                    <svg class="w-5 h-5 mr-3 group-hover:animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                    </svg>
+                    Download Resume (PDF)
+                </button>
+            </div>
+
+            <!-- Resume Content -->
+            <div class="max-w-5xl mx-auto">
+                <!-- Education -->
+                <div class="mb-16" data-aos="fade-up" data-aos-delay="300">
+                    <div class="bg-dark-800/50 backdrop-blur-sm rounded-2xl p-8 border border-primary-500/20 hover:border-primary-500/40 transition-all duration-300">
+                        <h3 class="text-2xl font-bold text-primary-400 mb-6 flex items-center">
+                            <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path>
+                            </svg>
+                            Education
+                        </h3>
+                        <div class="space-y-6">
+                            <div>
+                                <h4 class="text-xl font-semibold text-white mb-2">Bachelor of Science in Computer Science & Business Analytics</h4>
+                                <p class="text-primary-400 font-medium mb-2">University of South Florida (USF)</p>
+                                <p class="text-gray-400 mb-2">2021 - 2025 (Expected)</p>
+                                <p class="text-accent-400 font-medium">Judy Genshaft Honors College - Green and Gold Presidential Scholar</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Technical Skills -->
+                <div class="mb-16" data-aos="fade-up" data-aos-delay="400">
+                    <div class="bg-dark-800/50 backdrop-blur-sm rounded-2xl p-8 border border-primary-500/20 hover:border-primary-500/40 transition-all duration-300">
+                        <h3 class="text-2xl font-bold text-primary-400 mb-6 flex items-center">
+                            <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+                            </svg>
+                            Technical Skills
+                        </h3>
+                        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <div>
+                                <h5 class="text-white font-semibold mb-3">Programming Languages</h5>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="px-3 py-1 bg-primary-500/20 text-primary-400 rounded-full text-sm">Python</span>
+                                    <span class="px-3 py-1 bg-primary-500/20 text-primary-400 rounded-full text-sm">JavaScript</span>
+                                    <span class="px-3 py-1 bg-primary-500/20 text-primary-400 rounded-full text-sm">Java</span>
+                                    <span class="px-3 py-1 bg-primary-500/20 text-primary-400 rounded-full text-sm">C++</span>
+                                    <span class="px-3 py-1 bg-primary-500/20 text-primary-400 rounded-full text-sm">SQL</span>
+                                </div>
+                            </div>
+                            <div>
+                                <h5 class="text-white font-semibold mb-3">AI/ML & Data Science</h5>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="px-3 py-1 bg-accent-500/20 text-accent-400 rounded-full text-sm">TensorFlow</span>
+                                    <span class="px-3 py-1 bg-accent-500/20 text-accent-400 rounded-full text-sm">PyTorch</span>
+                                    <span class="px-3 py-1 bg-accent-500/20 text-accent-400 rounded-full text-sm">Scikit-learn</span>
+                                    <span class="px-3 py-1 bg-accent-500/20 text-accent-400 rounded-full text-sm">Pandas</span>
+                                    <span class="px-3 py-1 bg-accent-500/20 text-accent-400 rounded-full text-sm">NumPy</span>
+                                </div>
+                            </div>
+                            <div>
+                                <h5 class="text-white font-semibold mb-3">Web & Cloud Technologies</h5>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="px-3 py-1 bg-secondary-500/20 text-secondary-400 rounded-full text-sm">React</span>
+                                    <span class="px-3 py-1 bg-secondary-500/20 text-secondary-400 rounded-full text-sm">Node.js</span>
+                                    <span class="px-3 py-1 bg-secondary-500/20 text-secondary-400 rounded-full text-sm">AWS</span>
+                                    <span class="px-3 py-1 bg-secondary-500/20 text-secondary-400 rounded-full text-sm">Docker</span>
+                                    <span class="px-3 py-1 bg-secondary-500/20 text-secondary-400 rounded-full text-sm">Kubernetes</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Professional Experience -->
+                <div class="mb-16" data-aos="fade-up" data-aos-delay="500">
+                    <div class="bg-dark-800/50 backdrop-blur-sm rounded-2xl p-8 border border-primary-500/20 hover:border-primary-500/40 transition-all duration-300">
+                        <h3 class="text-2xl font-bold text-primary-400 mb-6 flex items-center">
+                            <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2-2v2m8 0V6a2 2 0 012 2v6a2 2 0 01-2 2H8a2 2 0 01-2-2V8a2 2 0 012-2V6"></path>
+                            </svg>
+                            Professional Experience
+                        </h3>
+                        <div class="space-y-8">
+                            <div class="border-l-4 border-primary-500 pl-6">
+                                <h4 class="text-xl font-semibold text-white mb-2">AI Solutions Intern & Technical Product Lead</h4>
+                                <p class="text-primary-400 font-medium mb-2">Bake More Pies</p>
+                                <p class="text-gray-400 mb-3">2023 - Present</p>
+                                <ul class="text-gray-300 space-y-2">
+                                    <li class="flex items-start">
+                                        <span class="text-accent-400 mr-2">•</span>
+                                        Developed AI solutions platform with microservices architecture
+                                    </li>
+                                    <li class="flex items-start">
+                                        <span class="text-accent-400 mr-2">•</span>
+                                        Achieved 60% performance improvement and 99.9% uptime
+                                    </li>
+                                    <li class="flex items-start">
+                                        <span class="text-accent-400 mr-2">•</span>
+                                        Reduced infrastructure costs by 40%
+                                    </li>
+                                    <li class="flex items-start">
+                                        <span class="text-accent-400 mr-2">•</span>
+                                        Built containerized solutions with Kubernetes
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="border-l-4 border-accent-500 pl-6">
+                                <h4 class="text-xl font-semibold text-white mb-2">Faculty Honors Student & Technical Lead</h4>
+                                <p class="text-accent-400 font-medium mb-2">USF Research Infrastructure</p>
+                                <p class="text-gray-400 mb-3">2023 - 2024</p>
+                                <ul class="text-gray-300 space-y-2">
+                                    <li class="flex items-start">
+                                        <span class="text-primary-400 mr-2">•</span>
+                                        Re-architected research infrastructure and data processing systems
+                                    </li>
+                                    <li class="flex items-start">
+                                        <span class="text-primary-400 mr-2">•</span>
+                                        Improved research productivity and data accessibility by 77%
+                                    </li>
+                                    <li class="flex items-start">
+                                        <span class="text-primary-400 mr-2">•</span>
+                                        Built ETL pipelines and backend optimization systems
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Key Achievements -->
+                <div class="mb-16" data-aos="fade-up" data-aos-delay="600">
+                    <div class="bg-dark-800/50 backdrop-blur-sm rounded-2xl p-8 border border-primary-500/20 hover:border-primary-500/40 transition-all duration-300">
+                        <h3 class="text-2xl font-bold text-primary-400 mb-6 flex items-center">
+                            <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
+                            </svg>
+                            Key Achievements
+                        </h3>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="flex items-center p-4 bg-primary-500/10 rounded-xl border border-primary-500/20">
+                                <div class="w-12 h-12 bg-primary-500/20 rounded-full flex items-center justify-center mr-4">
+                                    <span class="text-primary-400 font-bold text-lg">60%</span>
+                                </div>
+                                <div>
+                                    <h5 class="text-white font-semibold">Performance Improvement</h5>
+                                    <p class="text-gray-400 text-sm">AI Solutions Platform</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center p-4 bg-accent-500/10 rounded-xl border border-accent-500/20">
+                                <div class="w-12 h-12 bg-accent-500/20 rounded-full flex items-center justify-center mr-4">
+                                    <span class="text-accent-400 font-bold text-lg">77%</span>
+                                </div>
+                                <div>
+                                    <h5 class="text-white font-semibold">Data Query Optimization</h5>
+                                    <p class="text-gray-400 text-sm">Research Infrastructure</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center p-4 bg-secondary-500/10 rounded-xl border border-secondary-500/20">
+                                <div class="w-12 h-12 bg-secondary-500/20 rounded-full flex items-center justify-center mr-4">
+                                    <span class="text-secondary-400 font-bold text-lg">40%</span>
+                                </div>
+                                <div>
+                                    <h5 class="text-white font-semibold">Cost Reduction</h5>
+                                    <p class="text-gray-400 text-sm">Infrastructure Optimization</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center p-4 bg-primary-500/10 rounded-xl border border-primary-500/20">
+                                <div class="w-12 h-12 bg-primary-500/20 rounded-full flex items-center justify-center mr-4">
+                                    <span class="text-primary-400 font-bold text-sm">99.9%</span>
+                                </div>
+                                <div>
+                                    <h5 class="text-white font-semibold">System Uptime</h5>
+                                    <p class="text-gray-400 text-sm">Production Systems</p>
+                                </div>
                             </div>
                         </div>
                     </div>

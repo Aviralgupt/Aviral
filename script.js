@@ -6,6 +6,25 @@ AOS.init({
     offset: 100
 });
 
+// Download Resume Function
+function downloadResume() {
+    // Create a temporary link to download the resume
+    // For now, we'll generate a dynamic resume or you can upload a PDF file
+    
+    // Option 1: Alert user to contact for resume (temporary solution)
+    alert('Please contact me at aviralgupta@usf.edu to request my latest resume, or connect with me on LinkedIn!');
+    
+    // Option 2: If you have a PDF file, uncomment the following lines:
+    /*
+    const link = document.createElement('a');
+    link.href = '/path/to/your/resume.pdf';
+    link.download = 'Aviral_Gupta_Resume.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    */
+}
+
 // Mobile Navigation Toggle
 const hamburger = document.querySelector('.hamburger');
 const navMenu = document.querySelector('.nav-menu');
