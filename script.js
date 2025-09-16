@@ -6,288 +6,107 @@ AOS.init({
     offset: 100
 });
 
-// Auto-create floating resume button when page loads
-window.addEventListener('load', function() {
-    // Wait a bit for the page to fully load, then show the floating button
-    setTimeout(() => {
-        createFloatingResumeButton();
-    }, 2000);
-});
-
-// Floating Resume Action Button
-let resumeButtonExpanded = false;
-
+// Download Resume Function (simple version)
 function downloadResume() {
-    createFloatingResumeButton();
-}
-
-function createFloatingResumeButton() {
-    try {
-        console.log('Creating floating resume button...');
-        
-        // Remove existing button if any
-        const existingButton = document.getElementById('floating-resume-button');
-        if (existingButton) {
-            existingButton.remove();
-        }
-
-    // Create floating button container
-    const floatingContainer = document.createElement('div');
-    floatingContainer.id = 'floating-resume-button';
-    floatingContainer.style.cssText = `
+    // Create a simple modal with resume options
+    const modal = document.createElement('div');
+    modal.style.cssText = `
         position: fixed;
-        bottom: 30px;
-        right: 30px;
-        z-index: 10000;
-        font-family: 'Inter', sans-serif;
-    `;
-
-    // Create main action button
-    const mainButton = document.createElement('button');
-    mainButton.id = 'main-resume-btn';
-    mainButton.style.cssText = `
-        width: 60px;
-        height: 60px;
-        border-radius: 50%;
-        background: linear-gradient(135deg, #3b82f6, #1d4ed8);
-        border: none;
-        cursor: pointer;
-        box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
-        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
         display: flex;
-        align-items: center;
         justify-content: center;
-        font-size: 24px;
-        position: relative;
-        overflow: hidden;
+        align-items: center;
+        z-index: 9999;
+        backdrop-filter: blur(10px);
     `;
     
-    mainButton.innerHTML = `
-        <span id="main-btn-icon" style="transition: all 0.3s ease;">📄</span>
-        <div style="position: absolute; top: -2px; right: -2px; width: 8px; height: 8px; background: #10b981; border-radius: 50%; animation: pulse 2s infinite;"></div>
-    `;
-
-    // Create options container
-    const optionsContainer = document.createElement('div');
-    optionsContainer.id = 'resume-options';
-    optionsContainer.style.cssText = `
-        position: absolute;
-        bottom: 70px;
-        right: 0;
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-        opacity: 0;
-        transform: translateY(20px) scale(0.8);
-        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        pointer-events: none;
-    `;
-
-    // Create option buttons
-    const options = [
-        { icon: '🌐', text: 'View Online', action: 'viewResumeOnline', color: 'linear-gradient(135deg, #3b82f6, #1d4ed8)' },
-        { icon: '📥', text: 'Download', action: 'downloadPDFResume', color: 'linear-gradient(135deg, #10b981, #047857)' },
-        { icon: '🖨️', text: 'Print', action: 'printResume', color: 'linear-gradient(135deg, #f59e0b, #d97706)' },
-        { icon: '📧', text: 'Email Me', action: 'contactForResume', color: 'linear-gradient(135deg, #8b5cf6, #7c3aed)' }
-    ];
-
-    options.forEach((option, index) => {
-        const optionButton = document.createElement('button');
-        optionButton.style.cssText = `
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px 20px;
-            background: ${option.color};
-            border: none;
-            border-radius: 25px;
-            color: white;
-            font-weight: 600;
-            font-size: 14px;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            transition: all 0.3s ease;
-            white-space: nowrap;
-            transform: translateX(10px);
-            opacity: 0;
-            animation: slideInOption 0.3s ease forwards;
-            animation-delay: ${index * 0.1}s;
-        `;
-        
-        optionButton.innerHTML = `
-            <span style="font-size: 16px;">${option.icon}</span>
-            <span>${option.text}</span>
-        `;
-        
-        optionButton.addEventListener('click', function() {
-            window[option.action]();
-            closeFloatingButton();
-        });
-        
-        optionButton.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateX(0) scale(1.05)';
-            this.style.boxShadow = '0 6px 20px rgba(0, 0, 0, 0.3)';
-        });
-        
-        optionButton.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateX(0) scale(1)';
-            this.style.boxShadow = '0 4px 15px rgba(0, 0, 0, 0.2)';
-        });
-        
-        optionsContainer.appendChild(optionButton);
-    });
-
-    // Add close button
-    const closeButton = document.createElement('button');
-    closeButton.style.cssText = `
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        background: linear-gradient(135deg, #6b7280, #4b5563);
-        border: none;
-        cursor: pointer;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        transition: all 0.3s ease;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 16px;
-        color: white;
-        align-self: center;
-        margin-top: 8px;
-        opacity: 0;
-        animation: slideInOption 0.3s ease forwards;
-        animation-delay: 0.4s;
+    const modalContent = document.createElement('div');
+    modalContent.style.cssText = `
+        background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+        padding: 30px;
+        border-radius: 20px;
+        text-align: center;
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+        border: 1px solid rgba(59, 130, 246, 0.3);
+        max-width: 400px;
+        width: 90%;
     `;
     
-    closeButton.innerHTML = '✕';
-    closeButton.addEventListener('click', closeFloatingButton);
-    optionsContainer.appendChild(closeButton);
-
-    // Toggle functionality
-    mainButton.addEventListener('click', function() {
-        if (resumeButtonExpanded) {
-            closeFloatingButton();
-        } else {
-            expandFloatingButton();
+    modalContent.innerHTML = `
+        <h3 style="color: #3b82f6; font-size: 24px; margin-bottom: 20px; font-weight: 600;">
+            📄 Resume Options
+        </h3>
+        <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-bottom: 20px;">
+            <button onclick="viewResumeOnline(); document.body.removeChild(this.closest('.modal'))" style="
+                background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+                color: white; border: none; padding: 10px 20px; border-radius: 8px;
+                cursor: pointer; font-weight: 600; font-size: 14px;
+            ">🌐 View Online</button>
+            <button onclick="downloadPDFResume(); document.body.removeChild(this.closest('.modal'))" style="
+                background: linear-gradient(135deg, #10b981, #047857);
+                color: white; border: none; padding: 10px 20px; border-radius: 8px;
+                cursor: pointer; font-weight: 600; font-size: 14px;
+            ">📥 Download</button>
+        </div>
+        <button onclick="document.body.removeChild(this.closest('.modal'))" style="
+            background: transparent; color: #94a3b8; border: 1px solid #475569;
+            padding: 8px 16px; border-radius: 6px; cursor: pointer;
+        ">Close</button>
+    `;
+    
+    modal.className = 'modal';
+    modal.appendChild(modalContent);
+    document.body.appendChild(modal);
+    
+    modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+            document.body.removeChild(modal);
         }
     });
+}
 
-    // Assemble the button
-    floatingContainer.appendChild(optionsContainer);
-    floatingContainer.appendChild(mainButton);
-    document.body.appendChild(floatingContainer);
+// Hamburger Menu Navigation
+let menuOpen = false;
 
-    // Add CSS animations
-    if (!document.getElementById('floating-button-styles')) {
-        const style = document.createElement('style');
-        style.id = 'floating-button-styles';
-        style.textContent = `
-            @keyframes slideInOption {
-                from {
-                    opacity: 0;
-                    transform: translateX(10px) scale(0.8);
-                }
-                to {
-                    opacity: 1;
-                    transform: translateX(0) scale(1);
-                }
-            }
-            
-            @keyframes pulse {
-                0%, 100% { opacity: 1; transform: scale(1); }
-                50% { opacity: 0.7; transform: scale(1.2); }
-            }
+function toggleMenu() {
+    const navMenu = document.getElementById('nav-menu');
+    const overlay = document.getElementById('nav-overlay');
+    const menuIcon = document.getElementById('menu-icon');
+    
+    menuOpen = !menuOpen;
+    
+    if (menuOpen) {
+        // Open menu
+        navMenu.style.transform = 'translateX(0)';
+        overlay.style.opacity = '1';
+        overlay.style.visibility = 'visible';
+        
+        // Change hamburger to X
+        menuIcon.innerHTML = `
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
         `;
-        document.head.appendChild(style);
-    }
-
-    // Auto-expand on first creation
-    setTimeout(() => expandFloatingButton(), 500);
-    
-    console.log('Floating resume button created successfully!');
-    
-    } catch (error) {
-        console.error('Error creating floating resume button:', error);
-        // Fallback: create a simple floating button
-        createSimpleFloatingButton();
-    }
-}
-
-function createSimpleFloatingButton() {
-    const simpleButton = document.createElement('div');
-    simpleButton.style.cssText = `
-        position: fixed;
-        bottom: 30px;
-        right: 30px;
-        width: 60px;
-        height: 60px;
-        background: linear-gradient(135deg, #3b82f6, #1d4ed8);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
-        z-index: 10000;
-        font-size: 24px;
-        color: white;
-        transition: all 0.3s ease;
-    `;
-    simpleButton.innerHTML = '📄';
-    simpleButton.title = 'Resume Options';
-    
-    simpleButton.addEventListener('click', function() {
-        // Try the original function, or fallback to direct PDF download
-        try {
-            downloadPDFResume();
-        } catch (e) {
-            window.open('assets/Aviral_Gupta_Resume.pdf', '_blank');
-        }
-    });
-    
-    simpleButton.addEventListener('mouseenter', function() {
-        this.style.transform = 'scale(1.1)';
-    });
-    
-    simpleButton.addEventListener('mouseleave', function() {
-        this.style.transform = 'scale(1)';
-    });
-    
-    document.body.appendChild(simpleButton);
-}
-
-function expandFloatingButton() {
-    resumeButtonExpanded = true;
-    const optionsContainer = document.getElementById('resume-options');
-    const mainBtnIcon = document.getElementById('main-btn-icon');
-    const mainBtn = document.getElementById('main-resume-btn');
-    
-    if (optionsContainer && mainBtnIcon && mainBtn) {
-        optionsContainer.style.opacity = '1';
-        optionsContainer.style.transform = 'translateY(0) scale(1)';
-        optionsContainer.style.pointerEvents = 'auto';
+        menuIcon.style.transform = 'rotate(90deg)';
+    } else {
+        // Close menu
+        navMenu.style.transform = 'translateX(100%)';
+        overlay.style.opacity = '0';
+        overlay.style.visibility = 'invisible';
         
-        mainBtnIcon.innerHTML = '✕';
-        mainBtn.style.background = 'linear-gradient(135deg, #ef4444, #dc2626)';
-        mainBtn.style.transform = 'rotate(90deg)';
+        // Change X back to hamburger
+        menuIcon.innerHTML = `
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        `;
+        menuIcon.style.transform = 'rotate(0deg)';
     }
 }
 
-function closeFloatingButton() {
-    resumeButtonExpanded = false;
-    const optionsContainer = document.getElementById('resume-options');
-    const mainBtnIcon = document.getElementById('main-btn-icon');
-    const mainBtn = document.getElementById('main-resume-btn');
-    
-    if (optionsContainer && mainBtnIcon && mainBtn) {
-        optionsContainer.style.opacity = '0';
-        optionsContainer.style.transform = 'translateY(20px) scale(0.8)';
-        optionsContainer.style.pointerEvents = 'none';
-        
-        mainBtnIcon.innerHTML = '📄';
-        mainBtn.style.background = 'linear-gradient(135deg, #3b82f6, #1d4ed8)';
-        mainBtn.style.transform = 'rotate(0deg)';
+function closeMenu() {
+    if (menuOpen) {
+        toggleMenu();
     }
 }
 
@@ -496,20 +315,39 @@ window.viewResumeOnline = function() {
     window.open('pdf-viewer.html', '_blank');
 };
 
-// Mobile Navigation Toggle
-const hamburger = document.querySelector('.hamburger');
-const navMenu = document.querySelector('.nav-menu');
-
-hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('active');
-    navMenu.classList.toggle('active');
-});
-
-// Close mobile menu when clicking on a link
-document.querySelectorAll('.nav-link').forEach(link => {
-    link.addEventListener('click', () => {
-        hamburger.classList.remove('active');
-        navMenu.classList.remove('active');
+// Hamburger Menu Event Listeners
+document.addEventListener('DOMContentLoaded', function() {
+    const menuToggle = document.getElementById('menu-toggle');
+    const menuClose = document.getElementById('menu-close');
+    const overlay = document.getElementById('nav-overlay');
+    
+    // Menu toggle button
+    if (menuToggle) {
+        menuToggle.addEventListener('click', toggleMenu);
+    }
+    
+    // Menu close button
+    if (menuClose) {
+        menuClose.addEventListener('click', closeMenu);
+    }
+    
+    // Overlay click to close
+    if (overlay) {
+        overlay.addEventListener('click', closeMenu);
+    }
+    
+    // Close menu when clicking on navigation links
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', () => {
+            closeMenu();
+        });
+    });
+    
+    // Close menu on escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && menuOpen) {
+            closeMenu();
+        }
     });
 });
 
