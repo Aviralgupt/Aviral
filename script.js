@@ -337,8 +337,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Close menu when clicking on navigation links
-    document.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('click', () => {
+document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', () => {
             closeMenu();
         });
     });
@@ -413,14 +413,14 @@ function animateCounter(element, target, duration = 2000) {
             if (isDecimal) {
                 element.textContent = start.toFixed(1);
             } else {
-                element.textContent = Math.floor(start);
+            element.textContent = Math.floor(start);
             }
             requestAnimationFrame(updateCounter);
         } else {
             if (isDecimal) {
                 element.textContent = target.toFixed(1);
-            } else {
-                element.textContent = target;
+        } else {
+            element.textContent = target;
             }
         }
     }
@@ -1342,4 +1342,42 @@ if (!document.querySelector('#reveal-styles')) {
     `;
     document.head.appendChild(style);
 }
+
+// Contact Form Handler
+document.addEventListener('DOMContentLoaded', function() {
+    const contactForm = document.getElementById('contact-form');
+    const formMessage = document.getElementById('form-message');
+    
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(contactForm);
+            const name = formData.get('name');
+            const email = formData.get('email');
+            const subject = formData.get('subject');
+            const message = formData.get('message');
+            
+            // Create mailto link
+            const mailtoLink = `mailto:aviralgupta@usf.edu?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`)}`;
+            
+            // Open email client
+            window.location.href = mailtoLink;
+            
+            // Show success message
+            formMessage.className = 'mt-4 p-4 rounded-xl text-center bg-green-500/20 text-green-400 border border-green-500/30';
+            formMessage.textContent = 'Opening your email client... Please send the message from there.';
+            formMessage.classList.remove('hidden');
+            
+            // Reset form
+            contactForm.reset();
+            
+            // Hide message after 5 seconds
+            setTimeout(() => {
+                formMessage.classList.add('hidden');
+            }, 5000);
+        });
+    }
+});
 
