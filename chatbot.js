@@ -1,12 +1,18 @@
-// Chatbot functionality
+// Chatbot functionality with Voice-to-Voice (STT + TTS)
 class Chatbot {
     constructor() {
         this.isOpen = false;
         this.conversationHistory = [];
         this.isTyping = false;
+        this.voiceMode = false;
+        this.isListening = false;
+        this.speechRecognition = null;
+        this.speakResponses = true;
+        this.lastMessageWasVoice = false; // Only speak reply when user used mic
         
         this.initializeElements();
         this.attachEventListeners();
+        this.initSpeech();
     }
 
     initializeElements() {
@@ -17,11 +23,79 @@ class Chatbot {
         this.sendButton = document.getElementById('send-button');
         this.chatIcon = document.getElementById('chat-icon');
         this.closeIcon = document.getElementById('close-icon');
+        this.voiceToggle = document.getElementById('voice-toggle');
+        this.voiceStatus = document.getElementById('voice-status');
+    }
+
+    initSpeech() {
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if (SpeechRecognition) {
+            this.speechRecognition = new SpeechRecognition();
+            this.speechRecognition.continuous = false;
+            this.speechRecognition.interimResults = false;
+            this.speechRecognition.lang = 'en-US';
+            this.speechRecognition.onresult = (e) => {
+                const transcript = e.results[0][0].transcript;
+                this.chatInput.value = transcript;
+                this.sendButton.disabled = false;
+                this.setVoiceStatus('');
+                this.isListening = false;
+                this.lastMessageWasVoice = true;
+                this.sendMessage();
+            };
+            this.speechRecognition.onerror = (e) => {
+                this.setVoiceStatus(e.error === 'no-speech' ? 'No speech heard. Try again.' : 'Voice error. Try again.');
+                this.isListening = false;
+            };
+            this.speechRecognition.onend = () => {
+                if (this.isListening) this.isListening = false;
+            };
+        } else {
+            if (this.voiceStatus) this.voiceStatus.textContent = 'Voice not supported in this browser';
+        }
+    }
+
+    setVoiceStatus(text) {
+        if (this.voiceStatus) this.voiceStatus.textContent = text;
+    }
+
+    startListening() {
+        if (!this.speechRecognition) {
+            this.setVoiceStatus('Voice input not supported. Use Chrome or Edge.');
+            return;
+        }
+        if (this.isListening) return;
+        this.isListening = true;
+        this.setVoiceStatus('Listening...');
+        try {
+            this.speechRecognition.start();
+        } catch (e) {
+            this.setVoiceStatus('Could not start mic.');
+            this.isListening = false;
+        }
+    }
+
+    speakText(text) {
+        if (!window.speechSynthesis || !text) return;
+        window.speechSynthesis.cancel();
+        const u = new SpeechSynthesisUtterance(text.substring(0, 500)); // Limit length for TTS
+        u.rate = 0.95;
+        u.pitch = 1;
+        u.volume = 1;
+        const voices = window.speechSynthesis.getVoices();
+        const en = voices.find(v => v.lang.startsWith('en'));
+        if (en) u.voice = en;
+        window.speechSynthesis.speak(u);
     }
 
     attachEventListeners() {
         // Toggle chat window
         this.chatToggle.addEventListener('click', () => this.toggleChat());
+        
+        // Voice toggle: click to speak (STT then send)
+        if (this.voiceToggle) {
+            this.voiceToggle.addEventListener('click', () => this.startListening());
+        }
         
         // Send message on button click
         this.sendButton.addEventListener('click', () => this.sendMessage());
@@ -111,6 +185,12 @@ class Chatbot {
             
             // Add AI response to chat
             this.addMessage(data.response, 'assistant');
+            
+            // Voice-to-voice: speak the response only when user asked via mic
+            if (this.lastMessageWasVoice && this.speakResponses && data.response) {
+                this.speakText(data.response);
+            }
+            this.lastMessageWasVoice = false;
             
         } catch (error) {
             console.error('Error sending message:', error);
@@ -231,6 +311,12 @@ class Chatbot {
         
         return formatted;
     }
+}
+
+// Load TTS voices (Chrome needs this before getVoices() returns)
+if (window.speechSynthesis) {
+    window.speechSynthesis.getVoices();
+    window.speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
 }
 
 // Initialize chatbot when DOM is loaded

@@ -1,6 +1,8 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
-// Initialize Gemini AI
+// Initialize Gemini AI (Gemini API key in env: Portfolio)
+// Optional: For RAG with Google Vertex AI, replace with Vertex AI client and a Vertex AI Search
+// data store or custom retrieval; then pass retrieved chunks into the context below.
 const genAI = new GoogleGenerativeAI(process.env.Portfolio);
 
 // Portfolio context for the AI
@@ -22,7 +24,7 @@ EDUCATION:
 - Relevant Coursework: Operating Systems, Distributed Systems, Embedded Systems, Algorithms, Machine Learning, Artificial Intelligence, Probability & Statistics, Data Structures, Software Engineering
 
 KEY EXPERIENCES:
-1. **AI Solutions Intern - Bake More Pies (May 2025 - Present)**
+1. **AI Solutions and Automation Intern - Bake More Pies (June 2025 - November 2025)**
    - Built automated QA pipelines cutting production defects by 30% and reducing release cycles from 2 weeks to 5 days
    - Designed containerized microservices sustaining 10K+ daily requests with sub-200ms response times and 99.9% uptime
    - Instrumented AWS monitoring leading to 3 UX redesigns that boosted daily active users by 18%
@@ -75,6 +77,16 @@ INTERESTS:
 - Exploring new cultures and technologies
 - Building meaningful connections
 
+HOBBIES (Personal life beyond code):
+- Travel & Exploration: Discovering new cultures, cuisines, and perspectives around the world; adventure and culture
+- Reading & Learning: Tech blogs, research papers, books on innovation and leadership; biographies
+- Culinary Adventures: Experimenting with international cuisines and authentic flavors; cooking and food culture
+- Photography & Tech: Capturing moments during travels; exploring the latest gadgets and tech innovations
+- Fun stats: 15+ programming languages explored, 50+ tech articles read monthly, 10+ countries to visit, endless curiosity
+
+GALLERY / PICTURES:
+- Moments from team collaboration, tech events, travel, campus, and community; portrait and networking events
+
 CONTACT:
 - Email: aviralgupta@usf.edu
 - Phone: (656) 200-7073
@@ -90,6 +102,8 @@ When answering questions:
 5. Encourage further conversation about opportunities or collaborations
 6. If asked about something not in this context, politely redirect to what you do know about Aviral
 7. Always maintain a professional but friendly tone
+8. When asked about hobbies or personal life, use the HOBBIES and GALLERY sections above
+9. You have a rich knowledge base about Aviral; use it to give detailed, personalized answers (RAG-style: answer from this context)
 `;
 
 export default async function handler(req, res) {

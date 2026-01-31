@@ -23,16 +23,16 @@
                             900: '#005099'
                         },
                         secondary: {
-                            50: '#ffe6e6',
-                            100: '#ffb3b3',
-                            200: '#ff8080',
-                            300: '#ff4d4d',
-                            400: '#ff1a1a',
-                            500: '#ff6b6b',
-                            600: '#e60000',
-                            700: '#cc0000',
-                            800: '#b30000',
-                            900: '#990000'
+                            50: '#ecfdf5',
+                            100: '#d1fae5',
+                            200: '#a7f3d0',
+                            300: '#6ee7b7',
+                            400: '#34d399',
+                            500: '#10b981',
+                            600: '#059669',
+                            700: '#047857',
+                            800: '#065f46',
+                            900: '#064e3b'
                         },
                         accent: {
                             50: '#e6f7f5',
@@ -241,6 +241,19 @@
             background-clip: text;
             animation: gradient-shift 3s ease infinite;
         }
+        
+        /* Dynamic motion: scroll-triggered reveal */
+        .motion-reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .motion-reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .motion-stagger > * { transition-delay: calc(var(--i, 0) * 0.08s); }
+        .hobby-card, .gallery-item { will-change: transform; }
     </style>
     
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
@@ -353,6 +366,20 @@
                     <span class="font-medium">Interests</span>
                 </a>
                 
+                <a href="#hobbies" class="nav-link flex items-center px-4 py-3 text-gray-300 hover:text-primary-400 hover:bg-primary-500/10 rounded-lg transition-all duration-200 group">
+                    <svg class="h-5 w-5 mr-3 group-hover:text-primary-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1.586a1 1 0 01.707.293l2.414 2.414a1 1 0 00.707.293H15M9 10V9a2 2 0 012-2h2a2 2 0 012 2v1M9 10H8a2 2 0 00-2 2v5a2 2 0 002 2h8a2 2 0 002-2v-5a2 2 0 00-2-2h-1" />
+                    </svg>
+                    <span class="font-medium">Hobbies</span>
+                </a>
+                
+                <a href="#gallery" class="nav-link flex items-center px-4 py-3 text-gray-300 hover:text-primary-400 hover:bg-primary-500/10 rounded-lg transition-all duration-200 group">
+                    <svg class="h-5 w-5 mr-3 group-hover:text-primary-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                    <span class="font-medium">Gallery</span>
+                </a>
+                
                 <a href="#contact" class="nav-link flex items-center px-4 py-3 text-gray-300 hover:text-primary-400 hover:bg-primary-500/10 rounded-lg transition-all duration-200 group">
                     <svg class="h-5 w-5 mr-3 group-hover:text-primary-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
@@ -384,10 +411,10 @@
         <!-- Floating Elements -->
         <div class="absolute inset-0 overflow-hidden">
             <div class="absolute top-20 left-10 text-4xl text-primary-500/20 animate-float" style="animation-delay: 0s;">🚀</div>
-            <div class="absolute top-60 right-20 text-4xl text-secondary-500/20 animate-float" style="animation-delay: 1s;">🤖</div>
+            <div class="absolute top-60 right-20 text-4xl text-primary-500/20 animate-float" style="animation-delay: 1s;">🤖</div>
             <div class="absolute top-40 left-1/2 text-4xl text-accent-500/20 animate-float" style="animation-delay: 2s;">💻</div>
             <div class="absolute bottom-40 left-20 text-4xl text-primary-500/20 animate-float" style="animation-delay: 3s;">🔬</div>
-            <div class="absolute bottom-20 right-1/2 text-4xl text-secondary-500/20 animate-float" style="animation-delay: 4s;">🌟</div>
+            <div class="absolute bottom-20 right-1/2 text-4xl text-primary-500/20 animate-float" style="animation-delay: 4s;">🌟</div>
         </div>
         
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -396,7 +423,7 @@
                     <h1 class="text-5xl lg:text-7xl font-bold mb-6 font-playfair leading-tight">
                         Hi, I'm <span class="bg-gradient-to-r from-primary-400 to-accent-400 bg-clip-text text-transparent">Aviral Gupta</span>
                     </h1>
-                    <p class="text-xl lg:text-2xl text-secondary-400 mb-6 font-semibold">Computer Science & Business Analytics Student • Passionate about AI & Systems</p>
+                    <p class="text-xl lg:text-2xl text-primary-300 mb-6 font-semibold">Computer Science & Business Analytics Student • Passionate about AI & Systems</p>
                     <p class="text-lg text-gray-300 mb-8 leading-relaxed max-w-2xl mx-auto lg:mx-0">
                         I'm a Computer Science and Business Analytics student at USF, part of the Judy Genshaft 
                         Honors College as a Green and Gold Presidential Scholar. I'm passionate about AI/ML, 
@@ -431,29 +458,16 @@
                     </div>
                 </div>
                 
-                <div class="relative" data-aos="fade-left" data-aos-duration="1000">
-                    <div class="relative w-96 h-80 mx-auto">
-                        <!-- Animated Background -->
-                        <div class="absolute inset-0 bg-gradient-to-br from-primary-500/20 to-accent-500/20 rounded-3xl blur-3xl animate-pulse-slow"></div>
-                        
-                        <!-- Main Card -->
-                        <div class="relative bg-dark-800/80 backdrop-blur-xl rounded-3xl p-8 border border-primary-500/30 shadow-2xl">
-                            <div class="text-center">
-                                <div class="w-24 h-24 bg-gradient-to-br from-primary-500 to-accent-500 rounded-full mx-auto mb-6 flex items-center justify-center">
-                                    <i class="fas fa-robot text-3xl text-white"></i>
-                                </div>
-                                <h3 class="text-xl font-semibold text-white mb-4">AI Solutions Platform</h3>
-                                <p class="text-gray-300 text-sm leading-relaxed">
-                                    Building intelligent systems that transform how businesses operate and scale
-                                </p>
+                <!-- Hero right: clean visual focus -->
+                <div class="relative hidden lg:block" data-aos="fade-left" data-aos-duration="1000">
+                    <div class="relative max-w-md mx-auto">
+                        <div class="absolute inset-0 bg-gradient-to-br from-primary-500/15 to-accent-500/15 rounded-full blur-3xl animate-pulse-slow"></div>
+                        <div class="relative flex items-center justify-center aspect-square rounded-full border border-primary-500/20 bg-dark-800/40 backdrop-blur-sm">
+                            <div class="text-center px-8">
+                                <p class="text-6xl lg:text-7xl font-bold text-white/90 font-playfair leading-tight">Build.<br>Ship.<br>Learn.</p>
+                                <p class="text-primary-400/80 text-sm mt-4 font-medium">Creating impact through technology</p>
                             </div>
                         </div>
-                        
-                        <!-- Floating Elements Around Card -->
-                        <div class="absolute -top-4 -left-4 w-8 h-8 bg-secondary-500 rounded-full animate-bounce" style="animation-delay: 0s;"></div>
-                        <div class="absolute -top-4 -right-4 w-6 h-6 bg-accent-500 rounded-full animate-bounce" style="animation-delay: 0.5s;"></div>
-                        <div class="absolute -bottom-4 -left-4 w-6 h-6 bg-primary-500 rounded-full animate-bounce" style="animation-delay: 1s;"></div>
-                        <div class="absolute -bottom-4 -right-4 w-8 h-8 bg-secondary-500 rounded-full animate-bounce" style="animation-delay: 1.5s;"></div>
                     </div>
                 </div>
             </div>
@@ -473,7 +487,7 @@
         <!-- Background Pattern -->
         <div class="absolute inset-0 opacity-10">
             <div class="absolute top-0 left-0 w-72 h-72 bg-primary-500 rounded-full mix-blend-multiply filter blur-xl animate-pulse"></div>
-            <div class="absolute top-0 right-0 w-72 h-72 bg-secondary-500 rounded-full mix-blend-multiply filter blur-xl animate-pulse" style="animation-delay: 2s;"></div>
+            <div class="absolute top-0 right-0 w-72 h-72 bg-primary-500 rounded-full mix-blend-multiply filter blur-xl animate-pulse" style="animation-delay: 2s;"></div>
             <div class="absolute bottom-0 left-1/2 w-72 h-72 bg-accent-500 rounded-full mix-blend-multiply filter blur-xl animate-pulse" style="animation-delay: 4s;"></div>
         </div>
         
@@ -501,7 +515,7 @@
                             </div>
                         </div>
                         
-                        <div class="flex items-start space-x-4 p-6 bg-dark-700/50 rounded-xl border border-secondary-500/20 backdrop-blur-sm hover:border-secondary-500/40 transition-all duration-300 group card-hover">
+                        <div class="flex items-start space-x-4 p-6 bg-dark-700/50 rounded-xl border border-primary-500/20 backdrop-blur-sm hover:border-primary-500/40 transition-all duration-300 group card-hover">
                             <div class="text-3xl group-hover:scale-110 transition-transform duration-300">🤖</div>
                             <div>
                                 <h3 class="text-xl font-semibold text-white mb-2">AI Researcher</h3>
@@ -537,15 +551,15 @@
                         </div>
                         
                         <div>
-                            <h4 class="text-lg font-semibold text-secondary-400 mb-4 flex items-center">
+                            <h4 class="text-lg font-semibold text-primary-400 mb-4 flex items-center">
                                 <i class="fas fa-cogs mr-2"></i>
                                 Technologies
                             </h4>
                             <div class="flex flex-wrap gap-3">
-                                <span class="px-4 py-2 bg-dark-700 text-secondary-300 rounded-full border border-secondary-500/30 hover:border-secondary-500/60 transition-colors duration-300">React</span>
-                                <span class="px-4 py-2 bg-dark-700 text-secondary-300 rounded-full border border-secondary-500/30 hover:border-secondary-500/60 transition-colors duration-300">Flask</span>
-                                <span class="px-4 py-2 bg-dark-700 text-secondary-300 rounded-full border border-secondary-500/30 hover:border-secondary-500/60 transition-colors duration-300">Node.js</span>
-                                <span class="px-4 py-2 bg-dark-700 text-secondary-300 rounded-full border border-secondary-500/30 hover:border-secondary-500/60 transition-colors duration-300">Docker</span>
+                                <span class="px-4 py-2 bg-dark-700 text-primary-300 rounded-full border border-primary-500/30 hover:border-primary-500/60 transition-colors duration-300">React</span>
+                                <span class="px-4 py-2 bg-dark-700 text-primary-300 rounded-full border border-primary-500/30 hover:border-primary-500/60 transition-colors duration-300">Flask</span>
+                                <span class="px-4 py-2 bg-dark-700 text-primary-300 rounded-full border border-primary-500/30 hover:border-primary-500/60 transition-colors duration-300">Node.js</span>
+                                <span class="px-4 py-2 bg-dark-700 text-primary-300 rounded-full border border-primary-500/30 hover:border-primary-500/60 transition-colors duration-300">Docker</span>
                             </div>
                         </div>
                         
@@ -650,11 +664,11 @@
                             <div>
                                 <h5 class="text-white font-semibold mb-3">Web & Cloud Technologies</h5>
                                 <div class="flex flex-wrap gap-2">
-                                    <span class="px-3 py-1 bg-secondary-500/20 text-secondary-400 rounded-full text-sm">React</span>
-                                    <span class="px-3 py-1 bg-secondary-500/20 text-secondary-400 rounded-full text-sm">Node.js</span>
-                                    <span class="px-3 py-1 bg-secondary-500/20 text-secondary-400 rounded-full text-sm">AWS</span>
-                                    <span class="px-3 py-1 bg-secondary-500/20 text-secondary-400 rounded-full text-sm">Docker</span>
-                                    <span class="px-3 py-1 bg-secondary-500/20 text-secondary-400 rounded-full text-sm">Kubernetes</span>
+                                    <span class="px-3 py-1 bg-primary-500/20 text-primary-400 rounded-full text-sm">React</span>
+                                    <span class="px-3 py-1 bg-primary-500/20 text-primary-400 rounded-full text-sm">Node.js</span>
+                                    <span class="px-3 py-1 bg-primary-500/20 text-primary-400 rounded-full text-sm">AWS</span>
+                                    <span class="px-3 py-1 bg-primary-500/20 text-primary-400 rounded-full text-sm">Docker</span>
+                                    <span class="px-3 py-1 bg-primary-500/20 text-primary-400 rounded-full text-sm">Kubernetes</span>
                                 </div>
                             </div>
                         </div>
@@ -690,9 +704,9 @@
                                     <p class="text-gray-400 text-sm">Research Infrastructure</p>
                                 </div>
                             </div>
-                            <div class="flex items-center p-4 bg-secondary-500/10 rounded-xl border border-secondary-500/20">
-                                <div class="w-12 h-12 bg-secondary-500/20 rounded-full flex items-center justify-center mr-4">
-                                    <span class="text-secondary-400 font-bold text-lg">40%</span>
+                            <div class="flex items-center p-4 bg-primary-500/10 rounded-xl border border-primary-500/20">
+                                <div class="w-12 h-12 bg-primary-500/20 rounded-full flex items-center justify-center mr-4">
+                                    <span class="text-primary-400 font-bold text-lg">40%</span>
                                 </div>
                                 <div>
                                     <h5 class="text-white font-semibold">Cost Reduction</h5>
@@ -720,7 +734,7 @@
         <!-- Background Pattern -->
         <div class="absolute inset-0 opacity-5">
             <div class="absolute top-0 left-0 w-96 h-96 bg-gradient-to-br from-primary-500 to-transparent rounded-full filter blur-3xl"></div>
-            <div class="absolute bottom-0 right-0 w-96 h-96 bg-gradient-to-tl from-secondary-500 to-transparent rounded-full filter blur-3xl"></div>
+            <div class="absolute bottom-0 right-0 w-96 h-96 bg-gradient-to-tl from-primary-500 to-transparent rounded-full filter blur-3xl"></div>
         </div>
         
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -741,7 +755,8 @@
                         <div class="w-16 h-16 bg-gradient-to-br from-primary-500 to-primary-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
                             <i class="fas fa-robot text-2xl text-white"></i>
                         </div>
-                        <h3 class="text-xl font-bold text-white mb-4">AI Solutions Intern</h3>
+                        <h3 class="text-xl font-bold text-white mb-4">AI Solutions & Automation Intern</h3>
+                        <p class="text-primary-400/90 text-sm font-medium mb-2">June 2025 – November 2025</p>
                         <p class="text-gray-300 mb-6 leading-relaxed">
                             Designed high-performance microservices delivering sub-200ms API response times with 99.9% uptime
                         </p>
@@ -755,9 +770,9 @@
 
                 <!-- USF Research -->
                 <div class="group card-hover" data-aos="fade-up" data-aos-delay="400">
-                    <div class="relative bg-dark-800/80 backdrop-blur-xl rounded-2xl p-8 border border-secondary-500/20 hover:border-secondary-500/40 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-secondary-500/20">
+                    <div class="relative bg-dark-800/80 backdrop-blur-xl rounded-2xl p-8 border border-primary-500/20 hover:border-primary-500/40 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-primary-500/20">
                         <div class="absolute top-4 right-4 text-2xl">🔬</div>
-                        <div class="w-16 h-16 bg-gradient-to-br from-secondary-500 to-secondary-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                        <div class="w-16 h-16 bg-gradient-to-br from-primary-500 to-primary-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
                             <i class="fas fa-flask text-2xl text-white"></i>
                         </div>
                         <h3 class="text-xl font-bold text-white mb-4">Faculty Honors Student</h3>
@@ -765,9 +780,9 @@
                             Re-architected backend infrastructure cutting data retrieval latency by 40%
                         </p>
                         <div class="flex flex-wrap gap-2">
-                            <span class="px-3 py-1 bg-secondary-500/20 text-secondary-300 rounded-full text-sm border border-secondary-500/30">Python</span>
-                            <span class="px-3 py-1 bg-secondary-500/20 text-secondary-300 rounded-full text-sm border border-secondary-500/30">ETL</span>
-                            <span class="px-3 py-1 bg-secondary-500/20 text-secondary-300 rounded-full text-sm border border-secondary-500/30">Automation</span>
+                            <span class="px-3 py-1 bg-primary-500/20 text-primary-300 rounded-full text-sm border border-primary-500/30">Python</span>
+                            <span class="px-3 py-1 bg-primary-500/20 text-primary-300 rounded-full text-sm border border-primary-500/30">ETL</span>
+                            <span class="px-3 py-1 bg-primary-500/20 text-primary-300 rounded-full text-sm border border-primary-500/30">Automation</span>
                         </div>
                     </div>
                 </div>
@@ -812,9 +827,9 @@
 
                 <!-- Cultural Exploration -->
                 <div class="group card-hover" data-aos="fade-up" data-aos-delay="700">
-                    <div class="relative bg-dark-800/80 backdrop-blur-xl rounded-2xl p-8 border border-secondary-500/20 hover:border-secondary-500/40 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-secondary-500/20">
+                    <div class="relative bg-dark-800/80 backdrop-blur-xl rounded-2xl p-8 border border-primary-500/20 hover:border-primary-500/40 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-primary-500/20">
                         <div class="absolute top-4 right-4 text-2xl">🌍</div>
-                        <div class="w-16 h-16 bg-gradient-to-br from-secondary-500 to-secondary-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                        <div class="w-16 h-16 bg-gradient-to-br from-primary-500 to-primary-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
                             <i class="fas fa-globe-americas text-2xl text-white"></i>
                         </div>
                         <h3 class="text-xl font-bold text-white mb-4">Cultural Immersion</h3>
@@ -823,9 +838,9 @@
                             From local Tampa Bay adventures to international experiences.
                         </p>
                         <div class="flex flex-wrap gap-2">
-                            <span class="px-3 py-1 bg-secondary-500/20 text-secondary-300 rounded-full text-sm border border-secondary-500/30">Travel</span>
-                            <span class="px-3 py-1 bg-secondary-500/20 text-secondary-300 rounded-full text-sm border border-secondary-500/30">Culture</span>
-                            <span class="px-3 py-1 bg-secondary-500/20 text-secondary-300 rounded-full text-sm border border-secondary-500/30">Community</span>
+                            <span class="px-3 py-1 bg-primary-500/20 text-primary-300 rounded-full text-sm border border-primary-500/30">Travel</span>
+                            <span class="px-3 py-1 bg-primary-500/20 text-primary-300 rounded-full text-sm border border-primary-500/30">Culture</span>
+                            <span class="px-3 py-1 bg-primary-500/20 text-primary-300 rounded-full text-sm border border-primary-500/30">Community</span>
                         </div>
                     </div>
                 </div>
@@ -877,8 +892,8 @@
                                 </div>
                                 <div>
                                     <h3 class="text-2xl font-bold text-white mb-2">Bake More Pies - AI Solutions Platform</h3>
-                                    <p class="text-primary-400 font-semibold mb-1">AI Solutions Intern & Technical Product Lead</p>
-                                    <p class="text-gray-400 text-sm">Summer 2024</p>
+                                    <p class="text-primary-400 font-semibold mb-1">AI Solutions & Automation Intern & Technical Product Lead</p>
+                                    <p class="text-gray-400 text-sm">June 2025 – November 2025</p>
                                 </div>
                             </div>
                         </div>
@@ -887,7 +902,7 @@
                             <!-- Problem Section -->
                             <div class="bg-dark-800/50 rounded-2xl p-6 border border-primary-500/20">
                                 <h4 class="text-lg font-semibold text-white mb-4 flex items-center">
-                                    <i class="fas fa-exclamation-triangle text-secondary-400 mr-3"></i>
+                                    <i class="fas fa-exclamation-triangle text-primary-400 mr-3"></i>
                                     Problem & Goals
                                 </h4>
                                 <p class="text-gray-300 leading-relaxed">
@@ -896,9 +911,9 @@
                             </div>
                             
                             <!-- Approach Section -->
-                            <div class="bg-dark-800/50 rounded-2xl p-6 border border-secondary-500/20">
+                            <div class="bg-dark-800/50 rounded-2xl p-6 border border-primary-500/20">
                                 <h4 class="text-lg font-semibold text-white mb-4 flex items-center">
-                                    <i class="fas fa-cogs text-secondary-400 mr-3"></i>
+                                    <i class="fas fa-cogs text-primary-400 mr-3"></i>
                                     Approach & Tools
                                 </h4>
                                 <ul class="space-y-2 text-gray-300">
@@ -1028,15 +1043,15 @@
                 
                 <!-- USF Research Case Study -->
                 <div class="group card-hover" data-aos="fade-up" data-aos-delay="400">
-                    <div class="relative bg-dark-700/80 backdrop-blur-xl rounded-3xl p-8 lg:p-12 border border-secondary-500/20 hover:border-secondary-500/40 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-secondary-500/20">
+                    <div class="relative bg-dark-700/80 backdrop-blur-xl rounded-3xl p-8 lg:p-12 border border-primary-500/20 hover:border-primary-500/40 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-primary-500/20">
                         <div class="grid lg:grid-cols-2 gap-8 mb-8">
                             <div class="flex items-start space-x-4">
-                                <div class="w-20 h-20 bg-gradient-to-br from-secondary-500 to-secondary-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                                <div class="w-20 h-20 bg-gradient-to-br from-primary-500 to-primary-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                                     <i class="fas fa-flask text-3xl text-white"></i>
                                 </div>
                                 <div>
                                     <h3 class="text-2xl font-bold text-white mb-2">USF Research Infrastructure</h3>
-                                    <p class="text-secondary-400 font-semibold mb-1">Faculty Honors Student & Technical Lead</p>
+                                    <p class="text-primary-400 font-semibold mb-1">Faculty Honors Student & Technical Lead</p>
                                     <p class="text-gray-400 text-sm">2023-2024</p>
                                 </div>
                             </div>
@@ -1044,9 +1059,9 @@
                         
                         <div class="space-y-8">
                             <!-- Problem Section -->
-                            <div class="bg-dark-800/50 rounded-2xl p-6 border border-secondary-500/20">
+                            <div class="bg-dark-800/50 rounded-2xl p-6 border border-primary-500/20">
                                 <h4 class="text-lg font-semibold text-white mb-4 flex items-center">
-                                    <i class="fas fa-exclamation-triangle text-secondary-400 mr-3"></i>
+                                    <i class="fas fa-exclamation-triangle text-primary-400 mr-3"></i>
                                     Problem & Goals
                                 </h4>
                                 <p class="text-gray-300 leading-relaxed">
@@ -1055,22 +1070,22 @@
                             </div>
                             
                             <!-- Approach Section -->
-                            <div class="bg-dark-800/50 rounded-2xl p-6 border border-secondary-500/20">
+                            <div class="bg-dark-800/50 rounded-2xl p-6 border border-primary-500/20">
                                 <h4 class="text-lg font-semibold text-white mb-4 flex items-center">
-                                    <i class="fas fa-cogs text-secondary-400 mr-3"></i>
+                                    <i class="fas fa-cogs text-primary-400 mr-3"></i>
                                     Approach & Tools
                                 </h4>
                                 <ul class="space-y-2 text-gray-300">
                                     <li class="flex items-start">
-                                        <span class="text-secondary-400 mr-2">•</span>
+                                        <span class="text-primary-400 mr-2">•</span>
                                         Re-architected backend infrastructure with optimized ETL pipelines
                                     </li>
                                     <li class="flex items-start">
-                                        <span class="text-secondary-400 mr-2">•</span>
+                                        <span class="text-primary-400 mr-2">•</span>
                                         Implemented automated data processing workflows
                                     </li>
                                     <li class="flex items-start">
-                                        <span class="text-secondary-400 mr-2">•</span>
+                                        <span class="text-primary-400 mr-2">•</span>
                                         Designed new data access patterns and caching strategies
                                     </li>
                                 </ul>
@@ -1120,11 +1135,11 @@
                         </div>
                         
                         <!-- Tags -->
-                        <div class="flex flex-wrap gap-3 mt-8 pt-6 border-t border-secondary-500/20">
-                            <span class="px-4 py-2 bg-secondary-500/20 text-secondary-300 rounded-full text-sm border border-secondary-500/30">Data Infrastructure</span>
-                            <span class="px-4 py-2 bg-secondary-500/20 text-secondary-300 rounded-full text-sm border border-secondary-500/30">ETL Optimization</span>
-                            <span class="px-4 py-2 bg-secondary-500/20 text-secondary-300 rounded-full text-sm border border-secondary-500/30">Research Tools</span>
-                            <span class="px-4 py-2 bg-secondary-500/20 text-secondary-300 rounded-full text-sm border border-secondary-500/30">Automation</span>
+                        <div class="flex flex-wrap gap-3 mt-8 pt-6 border-t border-primary-500/20">
+                            <span class="px-4 py-2 bg-primary-500/20 text-primary-300 rounded-full text-sm border border-primary-500/30">Data Infrastructure</span>
+                            <span class="px-4 py-2 bg-primary-500/20 text-primary-300 rounded-full text-sm border border-primary-500/30">ETL Optimization</span>
+                            <span class="px-4 py-2 bg-primary-500/20 text-primary-300 rounded-full text-sm border border-primary-500/30">Research Tools</span>
+                            <span class="px-4 py-2 bg-primary-500/20 text-primary-300 rounded-full text-sm border border-primary-500/30">Automation</span>
                         </div>
                     </div>
                 </div>
@@ -1163,9 +1178,9 @@
                                             <i class="fas fa-robot text-2xl text-white"></i>
                                         </div>
                                         <div class="text-right">
-                                            <h3 class="text-xl font-bold text-white mb-2">AI Solutions Intern & Technical Product Lead</h3>
+                                            <h3 class="text-xl font-bold text-white mb-2">AI Solutions & Automation Intern & Technical Product Lead</h3>
                                             <p class="text-primary-400 font-semibold">Bake More Pies</p>
-                                            <p class="text-gray-400 text-sm">Summer 2024</p>
+                                            <p class="text-gray-400 text-sm">June 2025 – November 2025</p>
                                         </div>
                                     </div>
                                     <p class="text-gray-300 mb-6 leading-relaxed">
@@ -1226,14 +1241,14 @@
                             <div class="hidden lg:block absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-gradient-to-br from-primary-500 to-accent-500 rounded-full border-4 border-dark-900 shadow-lg"></div>
                             
                             <div class="lg:text-left lg:pl-8">
-                                <div class="bg-dark-800/80 backdrop-blur-xl rounded-2xl p-8 border border-secondary-500/20 hover:border-secondary-500/40 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-secondary-500/20">
+                                <div class="bg-dark-800/80 backdrop-blur-xl rounded-2xl p-8 border border-primary-500/20 hover:border-primary-500/40 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-primary-500/20">
                                     <div class="flex items-center mb-4">
-                                        <div class="w-16 h-16 bg-gradient-to-br from-secondary-500 to-secondary-600 rounded-2xl flex items-center justify-center mr-4">
+                                        <div class="w-16 h-16 bg-gradient-to-br from-primary-500 to-primary-600 rounded-2xl flex items-center justify-center mr-4">
                                             <i class="fas fa-flask text-2xl text-white"></i>
                                         </div>
                                         <div>
                                             <h3 class="text-xl font-bold text-white mb-2">Faculty Honors Student & Technical Lead</h3>
-                                            <p class="text-secondary-400 font-semibold">University of South Florida</p>
+                                            <p class="text-primary-400 font-semibold">University of South Florida</p>
                                             <p class="text-gray-400 text-sm">2023 - 2024</p>
                                         </div>
                                     </div>
@@ -1266,11 +1281,11 @@
                                         </ul>
                                     </div>
                                     <div class="flex flex-wrap gap-2">
-                                        <span class="px-3 py-1 bg-secondary-500/20 text-secondary-300 rounded-full text-sm border border-secondary-500/30">Python</span>
-                                        <span class="px-3 py-1 bg-secondary-500/20 text-secondary-300 rounded-full text-sm border border-secondary-500/30">ETL</span>
-                                        <span class="px-3 py-1 bg-secondary-500/20 text-secondary-300 rounded-full text-sm border border-secondary-500/30">Data Infrastructure</span>
-                                        <span class="px-3 py-1 bg-secondary-500/20 text-secondary-300 rounded-full text-sm border border-secondary-500/30">Automation</span>
-                                        <span class="px-3 py-1 bg-secondary-500/20 text-secondary-300 rounded-full text-sm border border-secondary-500/30">Performance Optimization</span>
+                                        <span class="px-3 py-1 bg-primary-500/20 text-primary-300 rounded-full text-sm border border-primary-500/30">Python</span>
+                                        <span class="px-3 py-1 bg-primary-500/20 text-primary-300 rounded-full text-sm border border-primary-500/30">ETL</span>
+                                        <span class="px-3 py-1 bg-primary-500/20 text-primary-300 rounded-full text-sm border border-primary-500/30">Data Infrastructure</span>
+                                        <span class="px-3 py-1 bg-primary-500/20 text-primary-300 rounded-full text-sm border border-primary-500/30">Automation</span>
+                                        <span class="px-3 py-1 bg-primary-500/20 text-primary-300 rounded-full text-sm border border-primary-500/30">Performance Optimization</span>
                                     </div>
                                 </div>
                             </div>
@@ -1467,7 +1482,7 @@
     <section id="projects" class="py-24 bg-dark-800 relative overflow-hidden">
         <!-- Background Pattern -->
         <div class="absolute inset-0 opacity-5">
-            <div class="absolute top-0 left-0 w-96 h-96 bg-gradient-to-br from-secondary-500 to-transparent rounded-full filter blur-3xl"></div>
+            <div class="absolute top-0 left-0 w-96 h-96 bg-gradient-to-br from-primary-500 to-transparent rounded-full filter blur-3xl"></div>
             <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-gradient-to-tl from-primary-500 to-transparent rounded-full filter blur-3xl"></div>
         </div>
         
@@ -1521,18 +1536,18 @@
 
                 <!-- Nusify Project -->
                 <div class="group card-hover" data-category="ai" data-aos="fade-up" data-aos-delay="400">
-                    <div class="relative bg-dark-700/80 backdrop-blur-xl rounded-3xl overflow-hidden border border-secondary-500/20 hover:border-secondary-500/40 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-secondary-500/20">
-                        <div class="relative h-64 bg-gradient-to-br from-secondary-500/20 to-accent-500/20 flex items-center justify-center">
-                            <div class="absolute inset-0 bg-gradient-to-br from-secondary-500/10 to-accent-500/10 rounded-t-3xl"></div>
+                    <div class="relative bg-dark-700/80 backdrop-blur-xl rounded-3xl overflow-hidden border border-primary-500/20 hover:border-primary-500/40 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-primary-500/20">
+                        <div class="relative h-64 bg-gradient-to-br from-primary-500/20 to-accent-500/20 flex items-center justify-center">
+                            <div class="absolute inset-0 bg-gradient-to-br from-primary-500/10 to-accent-500/10 rounded-t-3xl"></div>
                             <div class="relative z-10 text-center">
-                                <i class="fas fa-rocket text-6xl text-secondary-400 mb-4"></i>
+                                <i class="fas fa-rocket text-6xl text-primary-400 mb-4"></i>
                                 <h3 class="text-2xl font-bold text-white">Nusify</h3>
-                                <p class="text-secondary-300 text-sm">Scalable SaaS Platform</p>
+                                <p class="text-primary-300 text-sm">Scalable SaaS Platform</p>
                             </div>
                             
                             <!-- Project Links Overlay -->
                             <div class="absolute inset-0 bg-dark-900/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center space-x-4">
-                                <a href="#" class="w-12 h-12 bg-secondary-500 rounded-full flex items-center justify-center text-white hover:bg-secondary-600 transition-colors duration-300 transform hover:scale-110">
+                                <a href="#" class="w-12 h-12 bg-primary-500 rounded-full flex items-center justify-center text-white hover:bg-primary-600 transition-colors duration-300 transform hover:scale-110">
                                     <i class="fas fa-external-link-alt"></i>
                                 </a>
                                 <a href="https://github.com/Aviralgupt/Nusify" class="w-12 h-12 bg-dark-600 rounded-full flex items-center justify-center text-white hover:bg-dark-500 transition-colors duration-300 transform hover:scale-110">
@@ -1548,10 +1563,10 @@
                                 Exploring modern cloud-native patterns and microservices design.
                             </p>
                             <div class="flex flex-wrap gap-2">
-                                <span class="px-3 py-1 bg-secondary-500/20 text-secondary-300 rounded-full text-sm border border-secondary-500/30">SaaS</span>
-                                <span class="px-3 py-1 bg-secondary-500/20 text-secondary-300 rounded-full text-sm border border-secondary-500/30">Microservices</span>
-                                <span class="px-3 py-1 bg-secondary-500/20 text-secondary-300 rounded-full text-sm border border-secondary-500/30">AI Integration</span>
-                                <span class="px-3 py-1 bg-secondary-500/20 text-secondary-300 rounded-full text-sm border border-secondary-500/30">Cloud Native</span>
+                                <span class="px-3 py-1 bg-primary-500/20 text-primary-300 rounded-full text-sm border border-primary-500/30">SaaS</span>
+                                <span class="px-3 py-1 bg-primary-500/20 text-primary-300 rounded-full text-sm border border-primary-500/30">Microservices</span>
+                                <span class="px-3 py-1 bg-primary-500/20 text-primary-300 rounded-full text-sm border border-primary-500/30">AI Integration</span>
+                                <span class="px-3 py-1 bg-primary-500/20 text-primary-300 rounded-full text-sm border border-primary-500/30">Cloud Native</span>
                             </div>
                         </div>
                     </div>
@@ -1598,8 +1613,8 @@
                 <!-- NLP Research Pipeline Project -->
                 <div class="group card-hover" data-category="ai" data-aos="fade-up" data-aos-delay="600">
                     <div class="relative bg-dark-700/80 backdrop-blur-xl rounded-3xl overflow-hidden border border-primary-500/20 hover:border-primary-500/40 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-primary-500/20">
-                        <div class="relative h-64 bg-gradient-to-br from-primary-500/20 to-secondary-500/20 flex items-center justify-center">
-                            <div class="absolute inset-0 bg-gradient-to-br from-primary-500/10 to-secondary-500/10 rounded-t-3xl"></div>
+                        <div class="relative h-64 bg-gradient-to-br from-primary-500/20 to-accent-500/20 flex items-center justify-center">
+                            <div class="absolute inset-0 bg-gradient-to-br from-primary-500/10 to-accent-500/10 rounded-t-3xl"></div>
                             <div class="relative z-10 text-center">
                                 <i class="fas fa-brain text-6xl text-primary-400 mb-4"></i>
                                 <h3 class="text-2xl font-bold text-white">NLP Pipeline</h3>
@@ -1642,7 +1657,7 @@
         <div class="absolute inset-0 opacity-5">
             <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-accent-500 rounded-full mix-blend-multiply filter blur-3xl animate-pulse"></div>
             <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-primary-500 rounded-full mix-blend-multiply filter blur-3xl animate-pulse" style="animation-delay: 2s;"></div>
-            <div class="absolute top-3/4 left-3/4 w-64 h-64 bg-secondary-500 rounded-full mix-blend-multiply filter blur-2xl animate-pulse" style="animation-delay: 4s;"></div>
+            <div class="absolute top-3/4 left-3/4 w-64 h-64 bg-primary-500 rounded-full mix-blend-multiply filter blur-2xl animate-pulse" style="animation-delay: 4s;"></div>
                     </div>
         
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -1670,8 +1685,8 @@
                             <span class="px-3 py-1 bg-primary-500/20 text-primary-400 rounded-full text-sm">Deep Learning</span>
                             <span class="px-3 py-1 bg-primary-500/20 text-primary-400 rounded-full text-sm">NLP</span>
                             <span class="px-3 py-1 bg-primary-500/20 text-primary-400 rounded-full text-sm">Computer Vision</span>
+                        </div>
                     </div>
-                </div>
 
                     <div class="group bg-dark-900/50 backdrop-blur-sm rounded-2xl p-8 border border-accent-500/20 hover:border-accent-500/50 transition-all duration-300 hover:transform hover:scale-105">
                         <div class="w-16 h-16 bg-accent-500/20 rounded-xl flex items-center justify-center mb-6 group-hover:bg-accent-500/30 transition-colors duration-300">
@@ -1688,18 +1703,18 @@
                     </div>
                 </div>
 
-                    <div class="group bg-dark-900/50 backdrop-blur-sm rounded-2xl p-8 border border-secondary-500/20 hover:border-secondary-500/50 transition-all duration-300 hover:transform hover:scale-105">
-                        <div class="w-16 h-16 bg-secondary-500/20 rounded-xl flex items-center justify-center mb-6 group-hover:bg-secondary-500/30 transition-colors duration-300">
-                            <svg class="w-8 h-8 text-secondary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="group bg-dark-900/50 backdrop-blur-sm rounded-2xl p-8 border border-primary-500/20 hover:border-primary-500/50 transition-all duration-300 hover:transform hover:scale-105">
+                        <div class="w-16 h-16 bg-primary-500/20 rounded-xl flex items-center justify-center mb-6 group-hover:bg-primary-500/30 transition-colors duration-300">
+                            <svg class="w-8 h-8 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"></path>
                             </svg>
                     </div>
                         <h4 class="text-xl font-semibold text-white mb-4">Cloud & DevOps</h4>
                         <p class="text-gray-300 mb-4">Building scalable, reliable systems using modern cloud technologies and automated deployment pipelines.</p>
                         <div class="flex flex-wrap gap-2">
-                            <span class="px-3 py-1 bg-secondary-500/20 text-secondary-400 rounded-full text-sm">AWS</span>
-                            <span class="px-3 py-1 bg-secondary-500/20 text-secondary-400 rounded-full text-sm">Docker</span>
-                            <span class="px-3 py-1 bg-secondary-500/20 text-secondary-400 rounded-full text-sm">Kubernetes</span>
+                            <span class="px-3 py-1 bg-primary-500/20 text-primary-400 rounded-full text-sm">AWS</span>
+                            <span class="px-3 py-1 bg-primary-500/20 text-primary-400 rounded-full text-sm">Docker</span>
+                            <span class="px-3 py-1 bg-primary-500/20 text-primary-400 rounded-full text-sm">Kubernetes</span>
                     </div>
                 </div>
 
@@ -1733,18 +1748,18 @@
                     </div>
                 </div>
 
-                    <div class="group bg-dark-900/50 backdrop-blur-sm rounded-2xl p-8 border border-secondary-500/20 hover:border-secondary-500/50 transition-all duration-300 hover:transform hover:scale-105">
-                        <div class="w-16 h-16 bg-secondary-500/20 rounded-xl flex items-center justify-center mb-6 group-hover:bg-secondary-500/30 transition-colors duration-300">
-                            <svg class="w-8 h-8 text-secondary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="group bg-dark-900/50 backdrop-blur-sm rounded-2xl p-8 border border-primary-500/20 hover:border-primary-500/50 transition-all duration-300 hover:transform hover:scale-105">
+                        <div class="w-16 h-16 bg-primary-500/20 rounded-xl flex items-center justify-center mb-6 group-hover:bg-primary-500/30 transition-colors duration-300">
+                            <svg class="w-8 h-8 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path>
                             </svg>
                     </div>
                         <h4 class="text-xl font-semibold text-white mb-4">IoT & Embedded Systems</h4>
                         <p class="text-gray-300 mb-4">Fascinated by the intersection of hardware and software, building smart devices and autonomous systems.</p>
                         <div class="flex flex-wrap gap-2">
-                            <span class="px-3 py-1 bg-secondary-500/20 text-secondary-400 rounded-full text-sm">Arduino</span>
-                            <span class="px-3 py-1 bg-secondary-500/20 text-secondary-400 rounded-full text-sm">Raspberry Pi</span>
-                            <span class="px-3 py-1 bg-secondary-500/20 text-secondary-400 rounded-full text-sm">Robotics</span>
+                            <span class="px-3 py-1 bg-primary-500/20 text-primary-400 rounded-full text-sm">Arduino</span>
+                            <span class="px-3 py-1 bg-primary-500/20 text-primary-400 rounded-full text-sm">Raspberry Pi</span>
+                            <span class="px-3 py-1 bg-primary-500/20 text-primary-400 rounded-full text-sm">Robotics</span>
                         </div>
                     </div>
                     </div>
@@ -1768,8 +1783,8 @@
                     </div>
                 </div>
 
-                    <div class="group bg-dark-900/50 backdrop-blur-sm rounded-2xl p-6 border border-secondary-500/20 hover:border-secondary-500/50 transition-all duration-300 hover:transform hover:scale-105 text-center">
-                        <div class="w-16 h-16 bg-gradient-to-br from-secondary-500 to-accent-500 rounded-full flex items-center justify-center mb-4 mx-auto group-hover:shadow-lg group-hover:shadow-secondary-500/25 transition-all duration-300">
+                    <div class="group bg-dark-900/50 backdrop-blur-sm rounded-2xl p-6 border border-primary-500/20 hover:border-primary-500/50 transition-all duration-300 hover:transform hover:scale-105 text-center">
+                        <div class="w-16 h-16 bg-gradient-to-br from-primary-500 to-accent-500 rounded-full flex items-center justify-center mb-4 mx-auto group-hover:shadow-lg group-hover:shadow-secondary-500/25 transition-all duration-300">
                             <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
                             </svg>
@@ -1777,8 +1792,8 @@
                         <h4 class="text-lg font-semibold text-white mb-3">Reading & Learning</h4>
                         <p class="text-gray-300 text-sm mb-3">Always reading tech blogs, research papers, and books on innovation and leadership.</p>
                         <div class="flex flex-wrap justify-center gap-1">
-                            <span class="px-2 py-1 bg-secondary-500/20 text-secondary-400 rounded-full text-xs">Tech Blogs</span>
-                            <span class="px-2 py-1 bg-secondary-500/20 text-secondary-400 rounded-full text-xs">Biographies</span>
+                            <span class="px-2 py-1 bg-primary-500/20 text-primary-400 rounded-full text-xs">Tech Blogs</span>
+                            <span class="px-2 py-1 bg-primary-500/20 text-primary-400 rounded-full text-xs">Biographies</span>
                     </div>
                 </div>
 
@@ -1797,7 +1812,7 @@
                     </div>
 
                     <div class="group bg-dark-900/50 backdrop-blur-sm rounded-2xl p-6 border border-accent-500/20 hover:border-accent-500/50 transition-all duration-300 hover:transform hover:scale-105 text-center">
-                        <div class="w-16 h-16 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-full flex items-center justify-center mb-4 mx-auto group-hover:shadow-lg group-hover:shadow-primary-500/25 transition-all duration-300">
+                        <div class="w-16 h-16 bg-gradient-to-br from-primary-500 to-accent-500 rounded-full flex items-center justify-center mb-4 mx-auto group-hover:shadow-lg group-hover:shadow-primary-500/25 transition-all duration-300">
                             <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1.586a1 1 0 01.707.293l2.414 2.414a1 1 0 00.707.293H15M9 10V9a2 2 0 012-2h2a2 2 0 012 2v1M9 10H8a2 2 0 00-2 2v5a2 2 0 002 2h8a2 2 0 002-2v-5a2 2 0 00-2-2h-1"></path>
                             </svg>
@@ -1826,7 +1841,7 @@
                             <div class="text-gray-400">Tech Articles Read Monthly</div>
                         </div>
                         <div class="text-center">
-                            <div class="text-3xl font-bold text-secondary-400 mb-2">10+</div>
+                            <div class="text-3xl font-bold text-primary-400 mb-2">10+</div>
                             <div class="text-gray-400">Countries I Want to Visit</div>
                         </div>
                         <div class="text-center">
@@ -1836,6 +1851,104 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <!-- Hobbies Section (Dedicated Tab) -->
+    <section id="hobbies" class="py-24 bg-dark-900 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-5">
+            <div class="absolute top-1/3 right-0 w-80 h-80 bg-primary-500 rounded-full mix-blend-multiply filter blur-3xl animate-pulse"></div>
+            <div class="absolute bottom-1/3 left-0 w-80 h-80 bg-accent-500 rounded-full mix-blend-multiply filter blur-3xl animate-pulse" style="animation-delay: 1s;"></div>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl lg:text-5xl font-bold text-white mb-6 font-playfair">Hobbies & Life Beyond Code</h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-primary-500 to-accent-500 mx-auto rounded-full mb-6"></div>
+                <p class="text-xl text-gray-400 max-w-3xl mx-auto">What I love doing when I'm not building or learning something new</p>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="hobby-card group bg-dark-800/80 backdrop-blur-sm rounded-2xl p-6 border border-primary-500/20 hover:border-primary-500/60 transition-all duration-500 hover:scale-105 hover:-translate-y-2 hover:shadow-xl hover:shadow-primary-500/10" data-aos="fade-up" data-aos-delay="0">
+                    <div class="w-14 h-14 bg-gradient-to-br from-primary-500 to-accent-500 rounded-xl flex items-center justify-center mb-4 group-hover:rotate-6 transition-transform duration-300">
+                        <span class="text-2xl">✈️</span>
+                    </div>
+                    <h3 class="text-lg font-semibold text-white mb-2">Travel & Exploration</h3>
+                    <p class="text-gray-400 text-sm">Discovering new cultures, cuisines, and perspectives around the world.</p>
+                </div>
+                <div class="hobby-card group bg-dark-800/80 backdrop-blur-sm rounded-2xl p-6 border border-accent-500/20 hover:border-accent-500/60 transition-all duration-500 hover:scale-105 hover:-translate-y-2 hover:shadow-xl hover:shadow-accent-500/10" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-14 h-14 bg-gradient-to-br from-accent-500 to-primary-500 rounded-xl flex items-center justify-center mb-4 group-hover:rotate-6 transition-transform duration-300">
+                        <span class="text-2xl">📚</span>
+                    </div>
+                    <h3 class="text-lg font-semibold text-white mb-2">Reading & Learning</h3>
+                    <p class="text-gray-400 text-sm">Tech blogs, research papers, and books on innovation and leadership.</p>
+                </div>
+                <div class="hobby-card group bg-dark-800/80 backdrop-blur-sm rounded-2xl p-6 border border-primary-500/20 hover:border-primary-500/60 transition-all duration-500 hover:scale-105 hover:-translate-y-2 hover:shadow-xl hover:shadow-primary-500/10" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-14 h-14 bg-gradient-to-br from-primary-500 to-accent-500 rounded-xl flex items-center justify-center mb-4 group-hover:rotate-6 transition-transform duration-300">
+                        <span class="text-2xl">🍳</span>
+                    </div>
+                    <h3 class="text-lg font-semibold text-white mb-2">Culinary Adventures</h3>
+                    <p class="text-gray-400 text-sm">Experimenting with international cuisines and authentic flavors.</p>
+                </div>
+                <div class="hobby-card group bg-dark-800/80 backdrop-blur-sm rounded-2xl p-6 border border-primary-500/20 hover:border-primary-500/60 transition-all duration-500 hover:scale-105 hover:-translate-y-2 hover:shadow-xl hover:shadow-primary-500/10" data-aos="fade-up" data-aos-delay="300">
+                    <div class="w-14 h-14 bg-gradient-to-br from-primary-500 to-accent-500 rounded-xl flex items-center justify-center mb-4 group-hover:rotate-6 transition-transform duration-300">
+                        <span class="text-2xl">📷</span>
+                    </div>
+                    <h3 class="text-lg font-semibold text-white mb-2">Photography & Tech</h3>
+                    <p class="text-gray-400 text-sm">Capturing moments and exploring the latest gadgets.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery / My Pictures Section -->
+    <section id="gallery" class="py-24 bg-dark-800 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-5">
+            <div class="absolute top-0 left-1/2 w-96 h-96 bg-accent-500 rounded-full mix-blend-multiply filter blur-3xl"></div>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl lg:text-5xl font-bold text-white mb-6 font-playfair">My Pictures</h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-primary-500 to-accent-500 mx-auto rounded-full mb-6"></div>
+                <p class="text-xl text-gray-400 max-w-3xl mx-auto">Moments from travels, events, and everyday life</p>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                <div class="gallery-item relative aspect-square rounded-xl overflow-hidden border-2 border-primary-500/20 hover:border-primary-500/50 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-primary-500/20 group" data-aos="zoom-in" data-aos-delay="0">
+                    <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=400&h=400&fit=crop" alt="Team & collaboration" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3">
+                        <span class="text-white text-sm font-medium">Collaboration & teamwork</span>
+                    </div>
+                </div>
+                <div class="gallery-item aspect-square rounded-xl overflow-hidden border-2 border-primary-500/20 hover:border-primary-500/50 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-primary-500/20 group relative" data-aos="zoom-in" data-aos-delay="100">
+                    <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=400&h=400&fit=crop" alt="Coding & tech" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3">
+                        <span class="text-white text-sm font-medium">Tech & innovation</span>
+                    </div>
+                </div>
+                <div class="gallery-item aspect-square rounded-xl overflow-hidden border-2 border-primary-500/20 hover:border-primary-500/50 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-primary-500/20 group relative" data-aos="zoom-in" data-aos-delay="200">
+                    <img src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=400&h=400&fit=crop" alt="Travel" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3">
+                        <span class="text-white text-sm font-medium">Travel & exploration</span>
+                    </div>
+                </div>
+                <div class="gallery-item aspect-square rounded-xl overflow-hidden border-2 border-primary-500/20 hover:border-primary-500/50 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-primary-500/20 group relative" data-aos="zoom-in" data-aos-delay="300">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop" alt="Portrait" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3">
+                        <span class="text-white text-sm font-medium">Portrait</span>
+                    </div>
+                </div>
+                <div class="gallery-item aspect-square rounded-xl overflow-hidden border-2 border-primary-500/20 hover:border-primary-500/50 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-primary-500/20 group relative" data-aos="zoom-in" data-aos-delay="400">
+                    <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=400&h=400&fit=crop" alt="Events" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3">
+                        <span class="text-white text-sm font-medium">Events & networking</span>
+                    </div>
+                </div>
+                <div class="gallery-item aspect-square rounded-xl overflow-hidden border-2 border-primary-500/20 hover:border-primary-500/50 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-primary-500/20 group relative" data-aos="zoom-in" data-aos-delay="500">
+                    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400&h=400&fit=crop" alt="Campus" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3">
+                        <span class="text-white text-sm font-medium">Campus & community</span>
+                    </div>
+                </div>
+            </div>
+            <p class="text-center text-gray-500 text-sm mt-8">Replace these with your own photos by adding images to <code class="bg-dark-700 px-2 py-1 rounded">assets/gallery/</code> and updating the paths above.</p>
         </div>
     </section>
 
@@ -1872,8 +1985,8 @@
                             <span class="text-gray-300 group-hover:text-white transition-colors">aviralgupta@usf.edu</span>
                         </a>
                         
-                        <a href="tel:+16562007073" class="flex items-center space-x-4 p-4 bg-dark-800/50 rounded-xl border border-secondary-500/20 hover:border-secondary-500/40 transition-all duration-300 group card-hover cursor-pointer">
-                            <div class="w-10 h-10 bg-gradient-to-br from-secondary-500 to-secondary-600 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                        <a href="tel:+16562007073" class="flex items-center space-x-4 p-4 bg-dark-800/50 rounded-xl border border-primary-500/20 hover:border-primary-500/40 transition-all duration-300 group card-hover cursor-pointer">
+                            <div class="w-10 h-10 bg-gradient-to-br from-primary-500 to-primary-600 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                                 <i class="fas fa-phone text-white"></i>
                             </div>
                             <span class="text-gray-300 group-hover:text-white transition-colors">(656) 200-7073</span>
@@ -1891,7 +2004,7 @@
                         <a href="https://github.com/Aviralgupt" class="w-12 h-12 bg-dark-700 rounded-xl flex items-center justify-center text-gray-300 hover:text-white hover:bg-primary-500 transition-all duration-300 transform hover:-translate-y-1" title="GitHub">
                             <i class="fab fa-github text-xl"></i>
                         </a>
-                        <a href="https://linkedin.com/in/aviral-gupt" class="w-12 h-12 bg-dark-700 rounded-xl flex items-center justify-center text-gray-300 hover:text-white hover:bg-secondary-500 transition-all duration-300 transform hover:-translate-y-1" title="LinkedIn">
+                        <a href="https://linkedin.com/in/aviral-gupt" class="w-12 h-12 bg-dark-700 rounded-xl flex items-center justify-center text-gray-300 hover:text-white hover:bg-primary-500 transition-all duration-300 transform hover:-translate-y-1" title="LinkedIn">
                             <i class="fab fa-linkedin text-xl"></i>
                         </a>
                         <a href="https://aviralgupt.github.io/Aviral" class="w-12 h-12 bg-dark-700 rounded-xl flex items-center justify-center text-gray-300 hover:text-white hover:bg-accent-500 transition-all duration-300 transform hover:-translate-y-1" title="Portfolio">
@@ -1970,7 +2083,7 @@
                         <a href="https://github.com/Aviralgupt" class="w-10 h-10 bg-dark-700 rounded-lg flex items-center justify-center text-gray-300 hover:text-white hover:bg-primary-500 transition-all duration-300">
                             <i class="fab fa-github"></i>
                         </a>
-                        <a href="https://linkedin.com/in/aviral-gupt" class="w-10 h-10 bg-dark-700 rounded-lg flex items-center justify-center text-gray-300 hover:text-white hover:bg-secondary-500 transition-all duration-300">
+                        <a href="https://linkedin.com/in/aviral-gupt" class="w-10 h-10 bg-dark-700 rounded-lg flex items-center justify-center text-gray-300 hover:text-white hover:bg-primary-500 transition-all duration-300">
                             <i class="fab fa-linkedin"></i>
                         </a>
                         <a href="#" class="w-10 h-10 bg-dark-700 rounded-lg flex items-center justify-center text-gray-300 hover:text-white hover:bg-accent-500 transition-all duration-300">
@@ -2034,6 +2147,13 @@
 
             <!-- Chat Input -->
             <div class="p-4 border-t border-gray-700">
+                <div class="flex items-center gap-2 mb-2">
+                    <button id="voice-toggle" type="button" title="Voice mode: speak your question and hear the reply" class="p-2 rounded-lg border border-gray-600 text-gray-400 hover:text-primary-400 hover:border-primary-500/50 transition-all duration-200 focus:outline-none focus:ring-1 focus:ring-primary-500">
+                        <svg id="voice-icon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path></svg>
+                        <span id="voice-label" class="text-xs ml-1 hidden sm:inline">Voice</span>
+                    </button>
+                    <span id="voice-status" class="text-xs text-gray-500 flex-1 truncate"></span>
+                </div>
                 <div class="flex space-x-2">
                     <input 
                         type="text" 
