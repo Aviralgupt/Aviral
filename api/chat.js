@@ -1,9 +1,9 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
-// Initialize Gemini AI (Gemini API key in env: Portfolio)
-// Optional: For RAG with Google Vertex AI, replace with Vertex AI client and a Vertex AI Search
-// data store or custom retrieval; then pass retrieved chunks into the context below.
-const genAI = new GoogleGenerativeAI(process.env.Portfolio);
+// Gemini API key: set GEMINI_API_KEY or Portfolio in Vercel Environment Variables
+// Get your key at: https://makersuite.google.com/app/apikey
+const GEMINI_KEY = process.env.GEMINI_API_KEY || process.env.Portfolio;
+const genAI = new GoogleGenerativeAI(GEMINI_KEY || '');
 
 // Portfolio context for the AI
 const PORTFOLIO_CONTEXT = `
@@ -104,6 +104,12 @@ When answering questions:
 7. Always maintain a professional but friendly tone
 8. When asked about hobbies or personal life, use the HOBBIES and GALLERY sections above
 9. You have a rich knowledge base about Aviral; use it to give detailed, personalized answers (RAG-style: answer from this context)
+
+NAVIGATION TOOL (for voice bot): When the user asks to go to a section, open a page, or take them somewhere on the portfolio (e.g. "take me to experience", "go to projects", "show contact", "I want to see his experience"), reply with a short spoken confirmation AND include exactly this tag on its own line: [NAVIGATE:#section-id]
+Use the section-id that matches: home, about, resume, experience, product-portfolio, timeline, projects, interests, hobbies, gallery, contact.
+Example: "Taking you to the experience section! [NAVIGATE:#experience]"
+Example: "Sure, here's his projects. [NAVIGATE:#projects]"
+Keep the spoken part brief and natural; the tag triggers the page to scroll to that section.
 `;
 
 export default async function handler(req, res) {
@@ -128,8 +134,11 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: 'Message is required' });
     }
 
-    if (!process.env.Portfolio) {
-      return res.status(500).json({ error: 'Gemini API key not configured' });
+    if (!GEMINI_KEY || !GEMINI_KEY.trim()) {
+      return res.status(500).json({
+        error: 'Gemini API key not configured',
+        hint: 'Add GEMINI_API_KEY in Vercel Project Settings → Environment Variables'
+      });
     }
 
     // Get the generative model

@@ -1,14 +1,14 @@
-// Chatbot functionality with Voice-to-Voice (STT + TTS)
+// Chatbot + Voice bot: choice on open, then Chatbot (chat UI) or Voice bot (mic → API → TTS)
 class Chatbot {
     constructor() {
+        this.mode = null; // null | 'chatbot' | 'voice'
         this.isOpen = false;
         this.conversationHistory = [];
         this.isTyping = false;
-        this.voiceMode = false;
         this.isListening = false;
         this.speechRecognition = null;
         this.speakResponses = true;
-        this.lastMessageWasVoice = false; // Only speak reply when user used mic
+        this.lastMessageWasVoice = false;
         
         this.initializeElements();
         this.attachEventListeners();
@@ -25,6 +25,13 @@ class Chatbot {
         this.closeIcon = document.getElementById('close-icon');
         this.voiceToggle = document.getElementById('voice-toggle');
         this.voiceStatus = document.getElementById('voice-status');
+        this.choicePanel = document.getElementById('chat-mode-choice');
+        this.voiceBotPanel = document.getElementById('voice-bot-panel');
+        this.voiceBotStatus = document.getElementById('voice-bot-status');
+        this.choiceChatbotBtn = document.getElementById('choice-chatbot');
+        this.choiceVoiceBtn = document.getElementById('choice-voice');
+        this.voiceBotCloseBtn = document.getElementById('voice-bot-close');
+        this.voiceBotMicBtn = document.getElementById('voice-bot-mic');
     }
 
     initSpeech() {
@@ -36,12 +43,17 @@ class Chatbot {
             this.speechRecognition.lang = 'en-US';
             this.speechRecognition.onresult = (e) => {
                 const transcript = e.results[0][0].transcript;
-                this.chatInput.value = transcript;
-                this.sendButton.disabled = false;
-                this.setVoiceStatus('');
                 this.isListening = false;
-                this.lastMessageWasVoice = true;
-                this.sendMessage();
+                this.setVoiceStatus('');
+                if (this.mode === 'voice') {
+                    this.chatInput.value = transcript;
+                    this.voiceBotFlow(transcript);
+                } else {
+                    this.chatInput.value = transcript;
+                    this.sendButton.disabled = false;
+                    this.lastMessageWasVoice = true;
+                    this.sendMessage();
+                }
             };
             this.speechRecognition.onerror = (e) => {
                 this.setVoiceStatus(e.error === 'no-speech' ? 'No speech heard. Try again.' : 'Voice error. Try again.');
@@ -57,6 +69,49 @@ class Chatbot {
 
     setVoiceStatus(text) {
         if (this.voiceStatus) this.voiceStatus.textContent = text;
+        if (this.voiceBotStatus) this.voiceBotStatus.textContent = text || 'Click the mic to ask about Aviral.';
+    }
+
+    showChoice() {
+        this.hideChat();
+        this.hideVoicePanel();
+        if (this.choicePanel) this.choicePanel.classList.remove('hidden');
+        this.chatIcon.classList.add('hidden');
+        this.closeIcon.classList.remove('hidden');
+        this.mode = null;
+    }
+
+    hideChoice() {
+        if (this.choicePanel) this.choicePanel.classList.add('hidden');
+    }
+
+    hideVoicePanel() {
+        if (this.voiceBotPanel) this.voiceBotPanel.classList.add('hidden');
+    }
+
+    showVoicePanel() {
+        this.hideChoice();
+        this.hideChat();
+        if (this.voiceBotPanel) this.voiceBotPanel.classList.remove('hidden');
+        this.chatIcon.classList.add('hidden');
+        this.closeIcon.classList.remove('hidden');
+        this.mode = 'voice';
+        this.setVoiceStatus('How can I help you? Click the mic to speak.');
+        this.speakVoiceGreeting();
+    }
+
+    speakVoiceGreeting() {
+        const greeting = "Hi! I'm Aviral's voice assistant. How can I help you today? You can ask about his background, projects, or say something like 'take me to the experience section' to jump there.";
+        this.speakText(greeting);
+    }
+
+    resetToButton() {
+        this.mode = null;
+        this.hideChoice();
+        this.hideVoicePanel();
+        this.closeChat();
+        this.chatIcon.classList.remove('hidden');
+        this.closeIcon.classList.add('hidden');
     }
 
     startListening() {
@@ -88,11 +143,102 @@ class Chatbot {
         window.speechSynthesis.speak(u);
     }
 
+    async voiceBotFlow(userText) {
+        this.setVoiceStatus('Thinking...');
+        try {
+            const responseText = await this.fetchResponse(userText);
+            if (responseText) {
+                const { textToSpeak, navigateId } = this.parseNavigateAction(responseText);
+                if (navigateId) {
+                    this.scrollToSection(navigateId);
+                }
+                if (textToSpeak) {
+                    this.speakText(textToSpeak);
+                }
+                this.setVoiceStatus('How can I help you? Click the mic to speak again.');
+            } else {
+                this.setVoiceStatus('No response. Try again or check API key in Vercel.');
+            }
+        } catch (e) {
+            console.error(e);
+            this.setVoiceStatus('Error. Check connection and API key (Vercel → GEMINI_API_KEY).');
+        }
+    }
+
+    // Parse [NAVIGATE:#section-id] from API response; return { textToSpeak, navigateId }
+    parseNavigateAction(responseText) {
+        const tagRegex = /\[NAVIGATE:#?([a-z\-]+)\]/i;
+        const match = responseText.match(tagRegex);
+        let textToSpeak = responseText;
+        let navigateId = null;
+        if (match) {
+            navigateId = match[1].toLowerCase();
+            textToSpeak = responseText.replace(tagRegex, '').replace(/\n\n+/g, '\n').trim();
+        }
+        return { textToSpeak, navigateId };
+    }
+
+    scrollToSection(sectionId) {
+        const el = document.getElementById(sectionId) || document.querySelector(`[id="${sectionId}"]`);
+        if (el) {
+            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    }
+
+    async fetchResponse(message) {
+        const res = await fetch('/api/chat', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ message, conversationHistory: this.conversationHistory }),
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok) return null;
+        const text = data.response || '';
+        this.conversationHistory.push({ role: 'user', content: message });
+        this.conversationHistory.push({ role: 'assistant', content: text });
+        if (this.conversationHistory.length > 10) this.conversationHistory = this.conversationHistory.slice(-10);
+        return text;
+    }
+
     attachEventListeners() {
-        // Toggle chat window
-        this.chatToggle.addEventListener('click', () => this.toggleChat());
-        
-        // Voice toggle: click to speak (STT then send)
+        // Main button: show choice first, or close current mode
+        this.chatToggle.addEventListener('click', () => {
+            if (this.mode === null && this.choicePanel && !this.choicePanel.classList.contains('hidden')) {
+                this.resetToButton();
+                return;
+            }
+            if (this.mode === 'chatbot') {
+                this.toggleChat();
+                if (!this.isOpen) this.resetToButton();
+                return;
+            }
+            if (this.mode === 'voice') {
+                this.resetToButton();
+                return;
+            }
+            this.showChoice();
+        });
+
+        if (this.choiceChatbotBtn) {
+            this.choiceChatbotBtn.addEventListener('click', () => {
+                this.hideChoice();
+                this.mode = 'chatbot';
+                this.openChat();
+            });
+        }
+        if (this.choiceVoiceBtn) {
+            this.choiceVoiceBtn.addEventListener('click', () => this.showVoicePanel());
+        }
+        if (this.voiceBotCloseBtn) {
+            this.voiceBotCloseBtn.addEventListener('click', () => this.resetToButton());
+        }
+        if (this.voiceBotMicBtn) {
+            this.voiceBotMicBtn.addEventListener('click', () => {
+                if (this.mode === 'voice') this.startListening();
+            });
+        }
+
+        // In-chat voice (speak then send)
         if (this.voiceToggle) {
             this.voiceToggle.addEventListener('click', () => this.startListening());
         }
@@ -114,11 +260,13 @@ class Chatbot {
             this.sendButton.disabled = !hasText || this.isTyping;
         });
 
-        // Close chat when clicking outside
+        // Close when clicking outside
         document.addEventListener('click', (e) => {
-            if (!document.getElementById('chatbot-container').contains(e.target) && this.isOpen) {
-                this.closeChat();
-            }
+            const container = document.getElementById('chatbot-container');
+            if (!container || container.contains(e.target)) return;
+            if (this.isOpen) this.closeChat();
+            if (this.choicePanel && !this.choicePanel.classList.contains('hidden')) this.resetToButton();
+            if (this.mode === 'voice' && this.voiceBotPanel && !this.voiceBotPanel.classList.contains('hidden')) this.resetToButton();
         });
     }
 
@@ -136,17 +284,18 @@ class Chatbot {
         this.chatWindow.style.animation = 'slideIn 0.3s ease-out';
         this.chatIcon.classList.add('hidden');
         this.closeIcon.classList.remove('hidden');
-        this.chatInput.focus();
+        if (this.chatInput) this.chatInput.focus();
     }
 
     closeChat() {
         this.isOpen = false;
         this.chatWindow.style.animation = 'slideOut 0.3s ease-in';
-        setTimeout(() => {
-            this.chatWindow.classList.add('hidden');
-        }, 300);
-        this.chatIcon.classList.remove('hidden');
-        this.closeIcon.classList.add('hidden');
+        setTimeout(() => this.chatWindow.classList.add('hidden'), 300);
+    }
+
+    hideChat() {
+        this.isOpen = false;
+        this.chatWindow.classList.add('hidden');
     }
 
     async sendMessage() {
@@ -174,17 +323,25 @@ class Chatbot {
                 }),
             });
 
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
+            let data;
+            try {
+                data = await response.json();
+            } catch (_) {
+                data = {};
             }
-
-            const data = await response.json();
             
             // Hide typing indicator
             this.hideTypingIndicator();
+
+            if (!response.ok) {
+                const errMsg = (data && data.error) || (data && data.details) || `Request failed (${response.status})`;
+                const hint = data && data.hint ? ` ${data.hint}` : '';
+                this.addMessage(errMsg + hint, 'assistant', true);
+                return;
+            }
             
             // Add AI response to chat
-            this.addMessage(data.response, 'assistant');
+            this.addMessage(data.response || 'No response from assistant.', 'assistant');
             
             // Voice-to-voice: speak the response only when user asked via mic
             if (this.lastMessageWasVoice && this.speakResponses && data.response) {
